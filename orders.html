@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - TARKA</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* orders-page.css - CARD BASED DESIGN */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-orange: #F55B23;
+            --light-orange: #FF7A47;
+            --dark-orange: #E04A1A;
+            --primary-yellow: #FFD700;
+            --light-yellow: #FFF3CD;
+            --dark-yellow: #F4C430;
+            --white: #FFFFFF;
+            --text-dark: #2C3E50;
+            --text-light: #6C757D;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: white;
+            overflow-x: hidden;
+            background: #000;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            transition: margin-left 0.3s ease;
+        }
+
+        /* 🔥 Fire Background */
+        .fire-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -3;
+            filter: brightness(0.6) contrast(1.2) saturate(1.3);
+            animation: heatWave 5s ease-in-out infinite;
+        }
+
+        .fire-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        @keyframes heatWave {
+            0%, 100% { filter: brightness(0.6) contrast(1.2) saturate(1.3); }
+            50% { filter: brightness(0.7) contrast(1.1) saturate(1.4); }
+        }
+
+        /* Glass Effect Base */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(255, 87, 34, 0.2);
+            border-color: rgba(255, 87, 34, 0.3);
+        }
+
+        /* ===== SIDE NAVIGATION ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 87, 34, 0.3);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: var(--primary-orange);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 87, 34, 0.1);
+            transform: scale(1.1);
+        }
+
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 87, 34, 0.3);
+            z-index: 2000;
+            padding: 2rem 0;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .side-nav.active {
+            left: 0;
+        }
+
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-header {
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 87, 34, 0.1);
+            border-left-color: var(--primary-orange);
+            color: var(--primary-orange);
+            padding-left: 2rem;
+        }
+
+        .nav-links a.active {
+            background: rgba(255, 87, 34, 0.15);
+            border-left-color: var(--primary-orange);
+            color: var(--primary-orange);
+        }
+
+        .nav-links i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .cart-count {
+            background: var(--primary-orange);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+
+        .nav-footer {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+        }
+
+        .auth-btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+        }
+
+        .user-info {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        /* Orders Page */
+        .orders-page {
+            min-height: 100vh;
+            padding: 100px 20px 40px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .orders-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .orders-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 87, 34, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.2);
+        }
+
+        /* Main Orders Card */
+        .main-orders-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 1.8rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 87, 34, 0.3);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-yellow);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        /* Filters Card */
+        .filters-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 1.8rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filters-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+        }
+
+        .filter-select {
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            min-width: 160px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+        }
+
+        /* Table Card */
+        .table-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: white;
+        }
+
+        .orders-table thead {
+            background: linear-gradient(135deg, rgba(255, 87, 34, 0.3), rgba(255, 193, 7, 0.2));
+        }
+
+        .orders-table th {
+            padding: 1.5rem 1rem;
+            text-align: left;
+            color: var(--primary-orange);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(255, 87, 34, 0.3);
+        }
+
+        .orders-table td {
+            padding: 1.5rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        .orders-table tbody tr:hover {
+            background: rgba(255, 87, 34, 0.1);
+        }
+
+        /* Order Items in Table */
+        .order-id {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: var(--primary-yellow);
+        }
+
+        .order-date {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .order-date small {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .order-items {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .order-items small {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            min-width: 110px;
+            text-align: center;
+        }
+
+        .status-confirmed {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.2));
+            color: #2196f3;
+            border: 1px solid rgba(33, 150, 243, 0.4);
+        }
+
+        .order-amount {
+            font-weight: bold;
+            color: #4caf50;
+            font-size: 1.1rem;
+        }
+
+        /* View Button */
+        .view-btn {
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+        }
+
+        /* No Orders Card */
+        .no-orders-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 4rem 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .no-orders-card i {
+            font-size: 4rem;
+            color: var(--primary-orange);
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .no-orders-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .no-orders-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .no-orders-card .btn-primary {
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+        }
+
+        /* Pagination Card */
+        .pagination-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .page-btn {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-numbers {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .page-number {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .page-number.active {
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Floating Elements Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .floating-element {
+            position: fixed;
+            opacity: 0.05;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            background: var(--primary-orange);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background: var(--primary-yellow);
+            border-radius: 50%;
+            animation-delay: 2s;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .orders-page {
+                padding: 90px 15px 30px;
+            }
+            
+            .orders-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .orders-header h1 {
+                font-size: 2rem;
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                min-width: 100%;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-card {
+                overflow-x: auto;
+            }
+            
+            .orders-table {
+                min-width: 800px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .side-nav {
+                width: 100%;
+                left: -100%;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .orders-page {
+                padding: 80px 10px 20px;
+            }
+            
+            .main-orders-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 🔥 Fire Background Video -->
+    <video autoplay muted loop playsinline class="fire-bg">
+        <source src="firebg.mp4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="fire-overlay"></div>
+
+    <!-- Floating Elements -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+
+    <!-- Header with Menu Toggle -->
+    <div class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a href="home.html" class="logo" style="color: var(--primary-orange); font-size: 1.5rem; text-decoration: none; font-weight: bold;">
+            TARKA
+        </a>
+        <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+    </div>
+
+    <!-- Side Navigation -->
+    <div class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <a href="home.html" class="nav-logo">
+                <img src="logo (2).png" alt="Tarka Logo" class="nav-logo-img">
+                <span>TARKA</span>
+            </a>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="home.html" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+            <li>
+                <a href="cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Cart <span class="cart-count" id="side-cart-count">0</span>
+                </a>
+            </li>
+            <li><a href="tracking.html"><i class="fa-solid fa-location-dot"></i> Track Order</a></li>
+            <li><a href="userp.html" id="side-profile-link"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="orders.html"><i class="fa-solid fa-receipt"></i> My Orders</a></li>
+              <li><a href="deals.html"><i class="fa-solid fa-tags"></i> Deals</a></li>
+                     <li><a href="favourites.html"><i class="fas fa-heart"></i>Favorites</a></li> 
+                      <li><a href="contactus.html"><i class="fas fa-envelope"></i>Contact Us </a></li>
+        </ul>
+        
+        <div class="nav-footer">
+            <div class="user-info" id="side-user-info" style="display: none;">
+                <i class="fas fa-user-circle"></i>
+                <span id="side-user-name">Loading...</span>
+            </div>
+            <a href="#" class="auth-btn" id="side-auth-button">Login</a>
+        </div>
+    </div>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Orders Page -->
+    <div class="orders-page" id="ordersPage">
+        <div class="orders-container">
+            <!-- Header Card -->
+            <div class="header-card glass-card">
+                <div class="orders-header">
+                    <h1>My Orders</h1>
+                    <a href="userp.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i> Back to Profile
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Orders Card -->
+            <div class="main-orders-card glass-card">
+                <!-- Statistics -->
+                <div class="stats-grid" id="orders-stats">
+                    <div class="stat-card">
+                        <h3>Total Spent</h3>
+                        <div class="value">Rs11191.00</div>
+                        <div class="label">Average: Rs1865.17</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Orders</h3>
+                        <div class="value">0</div>
+                        <div class="label">Pending/Preparing/On Way</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Completed</h3>
+                        <div class="value">0</div>
+                        <div class="label">Successfully delivered</div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-card">
+                    <div class="filters-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-orders" placeholder="Search by order ID or item...">
+                        </div>
+                        <select class="filter-select" id="status-filter">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="preparing">Preparing</option>
+                            <option value="ontheway">On the Way</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        <select class="filter-select" id="time-filter">
+                            <option value="all">All Time</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="3months">Last 3 Months</option>
+                            <option value="year">This Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="table-card">
+                    <table class="orders-table" id="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date & Time</th>
+                                <th>Items</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-tbody">
+                            <tr>
+                                <td class="order-id">#TKA73954</td>
+                                <td class="order-date">
+                                    <div>Dec 27, 2025</div>
+                                    <small>08:27 PM</small>
+                                </td>
+                                <td class="order-items">
+                                    <div>1 items</div>
+                                    <small>Chicken Tikka Pizza</small>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-confirmed">Confirmed</span>
+                                </td>
+                                <td class="order-amount">Rs2145.00</td>
+                                <td>
+                                    <button class="view-btn" onclick="viewOrder('#TKA73954')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">ORD-1766846503677-52</td>
+                                <td class="order-date">
+                                    <div>Dec 27, 2025</div>
+                                    <small>07:41 PM</small>
+                                </td>
+                                <td class="order-items">
+                                    <div>1 items</div>
+                                    <small>Chicken Tikka Pizza</small>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-confirmed">Confirmed</span>
+                                </td>
+                                <td class="order-amount">Rs2145.00</td>
+                                <td>
+                                    <button class="view-btn" onclick="viewOrder('ORD-1766846503677-52')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">ORD-1766845406046-93</td>
+                                <td class="order-date">
+                                    <div>Dec 27, 2025</div>
+                                    <small>09:12 PM</small>
+                                </td>
+                                <td class="order-items">
+                                    <div>1 items</div>
+                                    <small>Margherita Pizza</small>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-confirmed">Confirmed</span>
+                                </td>
+                                <td class="order-amount">Rs1778.00</td>
+                                <td>
+                                    <button class="view-btn" onclick="viewOrder('ORD-1766845406046-93')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">ORD-1766837573377-164</td>
+                                <td class="order-date">
+                                    <div>Dec 27, 2025</div>
+                                    <small>05:12 PM</small>
+                                </td>
+                                <td class="order-items">
+                                    <div>1 items</div>
+                                    <small>Fajita Pizza</small>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-confirmed">Confirmed</span>
+                                </td>
+                                <td class="order-amount">Rs1935.00</td>
+                                <td>
+                                    <button class="view-btn" onclick="viewOrder('ORD-1766837573377-164')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">ORD-1766837449209-49</td>
+                                <td class="order-date">
+                                    <div>Dec 27, 2025</div>
+                                    <small>04:30 PM</small>
+                                </td>
+                                <td class="order-items">
+                                    <div>1 items</div>
+                                    <small>Pepperoni Pizza</small>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-confirmed">Confirmed</span>
+                                </td>
+                                <td class="order-amount">Rs1515.00</td>
+                                <td>
+                                    <button class="view-btn" onclick="viewOrder('ORD-1766837449209-49')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">ORD-1766751771389-893</td>
+                                <td class="order-date">
+                                    <div>Dec 26, 2025</div>
+                                    <small>07:30 PM</small>
+                                </td>
+                                <td class="order-items">
+                                    <div>1 items</div>
+                                    <small>BBQ Pizza</small>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-confirmed">Confirmed</span>
+                                </td>
+                                <td class="order-amount">Rs1673.00</td>
+                                <td>
+                                    <button class="view-btn" onclick="viewOrder('ORD-1766751771389-893')">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- No Orders Message -->
+                    <div class="no-orders-card" id="no-orders-message" style="display: none;">
+                        <i class="fas fa-shopping-bag"></i>
+                        <h3>No orders found</h3>
+                        <p>Try adjusting your filters or place a new order!</p>
+                        <a href="menu.html" class="btn btn-primary" style="margin-top: 1rem; display: inline-block; padding: 0.8rem 2rem; background: var(--primary-orange); color: white; text-decoration: none; border-radius: 8px;">
+                            <i class="fas fa-utensils"></i> Browse Menu
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-card" id="pagination">
+                    <button class="page-btn" id="prev-page">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <div class="page-numbers" id="page-numbers">
+                        <div class="page-number active">1</div>
+                    </div>
+                    <button class="page-btn" id="next-page">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ===== SIDE NAVIGATION FUNCTIONALITY =====
+    const menuToggle = document.getElementById('menuToggle');
+    const sideNav = document.getElementById('sideNav');
+    const navOverlay = document.getElementById('navOverlay');
+    const ordersPage = document.getElementById('ordersPage');
+
+    // Toggle side navigation
+    menuToggle.addEventListener('click', function() {
+        sideNav.classList.toggle('active');
+        navOverlay.classList.toggle('active');
+    });
+
+    // Close side navigation when clicking overlay
+    navOverlay.addEventListener('click', function() {
+        sideNav.classList.remove('active');
+        navOverlay.classList.remove('active');
+    });
+
+    // Close side navigation when clicking ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sideNav.classList.contains('active')) {
+            sideNav.classList.remove('active');
+            navOverlay.classList.remove('active');
+        }
+    });
+
+    // ===== ORDERS PAGE FUNCTIONALITY =====
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if user is logged in
+        if (!checkUserLoggedIn()) {
+            alert('Please login first to view your orders!');
+            window.location.href = 'login.html';
+            return;
+        }
+
+        // Configuration
+        const ITEMS_PER_PAGE = 10;
+        let currentPage = 1;
+        let totalPages = 1;
+        let allOrders = [];
+        let filteredOrders = [];
+
+        // Get user data
+        const userEmail = localStorage.getItem('userEmail');
+        const userName = localStorage.getItem('userName') || 'User';
+        
+        // Update side navigation
+        updateSideNavigation(userName);
+        updateCartCount();
+
+        // Initialize the page
+        initializeOrders();
+
+        // ===== EVENT LISTENERS =====
+        document.getElementById('search-orders').addEventListener('input', filterOrders);
+        document.getElementById('status-filter').addEventListener('change', filterOrders);
+        document.getElementById('time-filter').addEventListener('change', filterOrders);
+        document.getElementById('prev-page').addEventListener('click', goToPrevPage);
+        document.getElementById('next-page').addEventListener('click', goToNextPage);
+
+        // ===== CORE FUNCTIONS =====
+        
+        function initializeOrders() {
+            console.log("=== INITIALIZING ORDERS FROM PROFILE DATA ===");
+            
+            // Get orders from localStorage
+            let orders = JSON.parse(localStorage.getItem('tarkaOrders') || '[]');
+            
+            console.log('All orders from tarkaOrders:', orders);
+            console.log('Current user email:', userEmail);
+            
+            // Filter orders for current user
+            allOrders = orders.filter(order => {
+                console.log('Checking order email:', order.email, 'vs user email:', userEmail);
+                return order.email === userEmail;
+            });
+            
+            console.log('Filtered user orders:', allOrders);
+            console.log('Number of orders found:', allOrders.length);
+            
+            // Sort orders by date (newest first)
+            allOrders.sort((a, b) => {
+                const dateA = new Date(a.timestamp || a.date || 0);
+                const dateB = new Date(b.timestamp || b.date || 0);
+                return dateB - dateA;
+            });
+
+            // Initialize filtered orders
+            filteredOrders = [...allOrders];
+            
+            // Display everything
+            displayOrders();
+            updateStatistics();
+            updatePagination();
+        }
+
+        function filterOrders() {
+            const searchTerm = document.getElementById('search-orders').value.toLowerCase();
+            const statusFilter = document.getElementById('status-filter').value;
+            const timeFilter = document.getElementById('time-filter').value;
+            
+            filteredOrders = allOrders.filter(order => {
+                // Search filter
+                let matchesSearch = true;
+                if (searchTerm) {
+                    matchesSearch = (
+                        (order.orderId && order.orderId.toLowerCase().includes(searchTerm)) ||
+                        (order.items && order.items.some(item => 
+                            item.name && item.name.toLowerCase().includes(searchTerm)
+                        ))
+                    );
+                }
+                
+                // Status filter
+                let matchesStatus = true;
+                if (statusFilter !== 'all') {
+                    matchesStatus = order.status && order.status.toLowerCase() === statusFilter;
+                }
+                
+                // Time filter
+                let matchesTime = true;
+                if (timeFilter !== 'all') {
+                    const orderDate = new Date(order.timestamp || Date.now());
+                    const now = new Date();
+                    
+                    switch (timeFilter) {
+                        case 'week':
+                            const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+                            matchesTime = orderDate >= weekAgo;
+                            break;
+                        case 'month':
+                            const monthAgo = new Date(now);
+                            monthAgo.setMonth(monthAgo.getMonth() - 1);
+                            matchesTime = orderDate >= monthAgo;
+                            break;
+                        case '3months':
+                            const threeMonthsAgo = new Date(now);
+                            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+                            matchesTime = orderDate >= threeMonthsAgo;
+                            break;
+                        case 'year':
+                            const yearAgo = new Date(now);
+                            yearAgo.setFullYear(yearAgo.getFullYear() - 1);
+                            matchesTime = orderDate >= yearAgo;
+                            break;
+                    }
+                }
+                
+                return matchesSearch && matchesStatus && matchesTime;
+            });
+            
+            currentPage = 1;
+            displayOrders();
+            updateStatistics();
+            updatePagination();
+        }
+
+        function displayOrders() {
+            const tbody = document.getElementById('orders-tbody');
+            const noOrdersMessage = document.getElementById('no-orders-message');
+            const pagination = document.getElementById('pagination');
+            
+            tbody.innerHTML = '';
+            
+            if (filteredOrders.length === 0) {
+                // Show no orders message
+                noOrdersMessage.style.display = 'block';
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            noOrdersMessage.style.display = 'none';
+            pagination.style.display = 'flex';
+            
+            // Calculate pagination
+            totalPages = Math.ceil(filteredOrders.length / ITEMS_PER_PAGE);
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredOrders.length);
+            const pageOrders = filteredOrders.slice(startIndex, endIndex);
+            
+            // Display orders
+            pageOrders.forEach((order, index) => {
+                const orderDate = new Date(order.timestamp || Date.now());
+                const formattedDate = orderDate.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+                
+                // Get time in 12-hour format
+                const orderTime = orderDate.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+                
+                // Get item name (first item)
+                const firstItem = order.items && order.items.length > 0 
+                    ? (order.items[0].name || 'Item') 
+                    : 'No items';
+                
+                // Create table row
+                const row = document.createElement('tr');
+                row.onclick = function() {
+                    window.location.href = `tracking.html?orderId=${encodeURIComponent(order.orderId)}`;
+                };
+                
+                row.innerHTML = `
+                    <td class="order-id">${order.orderId || `ORD${1000 + index}`}</td>
+                    <td class="order-date">
+                        <div>${formattedDate}</div>
+                        <small>${orderTime}</small>
+                    </td>
+                    <td class="order-items">
+                        <div>${order.items ? order.items.length : 0} items</div>
+                        <small>${firstItem}</small>
+                    </td>
+                    <td>
+                        <span class="status-badge status-confirmed">
+                            ${order.status ? order.status.charAt(0).toUpperCase() + order.status.slice(1) : 'Confirmed'}
+                        </span>
+                    </td>
+                    <td class="order-amount">Rs${order.total ? order.total.toFixed(2) : '0.00'}</td>
+                    <td>
+                        <button class="view-btn" onclick="event.stopPropagation(); viewOrderDetails('${order.orderId}')">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Show/hide pagination
+            pagination.style.display = totalPages > 1 ? 'flex' : 'none';
+        }
+
+        function goToPrevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayOrders();
+                updatePagination();
+            }
+        }
+
+        function goToNextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayOrders();
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            const pageNumbers = document.getElementById('page-numbers');
+            if (!pageNumbers) return;
+            
+            pageNumbers.innerHTML = '';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const pageNumber = document.createElement('div');
+                pageNumber.className = `page-number ${i === currentPage ? 'active' : ''}`;
+                pageNumber.textContent = i;
+                pageNumber.onclick = function() {
+                    if (i !== currentPage) {
+                        currentPage = i;
+                        displayOrders();
+                        updatePagination();
+                    }
+                };
+                pageNumbers.appendChild(pageNumber);
+            }
+            
+            // Update prev/next buttons
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            
+            if (prevBtn) {
+                prevBtn.disabled = currentPage === 1;
+            }
+            
+            if (nextBtn) {
+                nextBtn.disabled = currentPage === totalPages;
+            }
+        }
+
+        function updateStatistics() {
+            const statsContainer = document.getElementById('orders-stats');
+            
+            if (!statsContainer) return;
+            
+            // Calculate statistics
+            const totalOrders = allOrders.length;
+            const totalSpent = allOrders.reduce((sum, order) => sum + (order.total || 0), 0);
+            const avgOrderValue = totalOrders > 0 ? (totalSpent / totalOrders).toFixed(2) : '0.00';
+            
+            // Count orders by status
+            const activeStatuses = ['pending', 'preparing', 'ontheway'];
+            const activeOrders = allOrders.filter(order => 
+                order.status && activeStatuses.includes(order.status.toLowerCase())
+            ).length;
+            
+            const deliveredOrders = allOrders.filter(order => 
+                order.status && order.status.toLowerCase() === 'delivered'
+            ).length;
+            
+            // Update statistics cards
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <h3>Total Spent</h3>
+                    <div class="value">Rs${totalSpent.toFixed(2)}</div>
+                    <div class="label">Average: Rs${avgOrderValue}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Orders</h3>
+                    <div class="value">${activeOrders}</div>
+                    <div class="label">Pending/Preparing/On Way</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Completed</h3>
+                    <div class="value">${deliveredOrders}</div>
+                    <div class="label">Successfully delivered</div>
+                </div>
+            `;
+        }
+
+        // ===== SIDE NAVIGATION FUNCTIONS =====
+        function updateSideNavigation(userName) {
+            const sideUserInfo = document.getElementById('side-user-info');
+            const sideUserName = document.getElementById('side-user-name');
+            const sideProfileLink = document.getElementById('side-profile-link');
+            const sideAuthButton = document.getElementById('side-auth-button');
+            
+            if (checkUserLoggedIn()) {
+                // User is logged in
+                sideUserInfo.style.display = 'block';
+                sideUserName.textContent = userName;
+                sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> ${userName}`;
+                sideAuthButton.textContent = 'Logout';
+                sideAuthButton.onclick = function(e) {
+                    e.preventDefault();
+                    logoutUser();
+                };
+            } else {
+                // User is not logged in
+                sideUserInfo.style.display = 'none';
+                sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> Profile`;
+                sideAuthButton.textContent = 'Login';
+                sideAuthButton.onclick = function(e) {
+                    e.preventDefault();
+                    window.location.href = 'login.html';
+                };
+            }
+        }
+
+        function updateCartCount() {
+            const cartItems = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+            const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+            
+            // Update cart count in side navigation
+            const sideCartCount = document.getElementById('side-cart-count');
+            if (sideCartCount) {
+                sideCartCount.textContent = totalItems;
+            }
+        }
+
+        // ===== HELPER FUNCTIONS =====
+        function checkUserLoggedIn() {
+            return localStorage.getItem('isLoggedIn') === 'true';
+        }
+
+        function logoutUser() {
+            localStorage.setItem('isLoggedIn', 'false');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('tarkaCart');
+            localStorage.removeItem('tarkaCurrentOrder');
+            window.location.href = 'welcome.html';
+        }
+
+        // Make function globally available
+        window.viewOrderDetails = function(orderId) {
+            window.location.href = `tracking.html?orderId=${encodeURIComponent(orderId)}`;
+        };
+
+        // Debug function to test data
+        function debugData() {
+            console.log("=== DEBUGGING DATA ===");
+            console.log("1. localStorage 'isLoggedIn':", localStorage.getItem('isLoggedIn'));
+            console.log("2. localStorage 'userEmail':", localStorage.getItem('userEmail'));
+            console.log("3. localStorage 'tarkaOrders':", JSON.parse(localStorage.getItem('tarkaOrders') || '[]'));
+            console.log("4. Number of orders in tarkaOrders:", JSON.parse(localStorage.getItem('tarkaOrders') || '[]').length);
+            console.log("=== END DEBUG ===");
+        }
+
+        // Run debug
+        debugData();
+    });
+    </script>
+</body>
+</html>

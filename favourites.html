@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites - TARKA</title>
+    <link rel="stylesheet" href="favourites.css">
+    <link rel="stylesheet" href="sidenav.css">
+    <link rel="stylesheet" href="keyboardnavi.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="contrast.css">
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Header with Menu Toggle (SAME AS LOGIN.HTML) -->
+    <div class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a href="home.html" class="logo">
+            TARKA
+        </a>
+        <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+    </div>
+
+    <!-- Side Navigation (SAME AS LOGIN.HTML) -->
+    <div class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <a href="home.html" class="nav-logo">
+                <img src="logo (2).png" alt="Tarka Logo" class="nav-logo-img">
+                <span>TARKA</span>
+            </a>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+            <li>
+                <a href="cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Cart <span class="cart-count" id="side-cart-count">0</span>
+                </a>
+            </li>
+            <li><a href="tracking.html"><i class="fa-solid fa-location-dot"></i> Track Order</a></li>
+            <li><a href="userp.html" id="side-profile-link"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="orders.html"><i class="fa-solid fa-receipt"></i> My Orders</a></li>
+            <li><a href="deals.html"><i class="fa-solid fa-tags"></i> Deals</a></li>
+            <li><a href="favourites.html" class="active"><i class="fas fa-heart"></i> Favorites</a></li>
+            <li><a href="contactus.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        </ul>
+        
+        <div class="nav-footer">
+            <div class="user-info" id="side-user-info" style="display: none;">
+                <i class="fas fa-user-circle"></i>
+                <span id="side-user-name">Loading...</span>
+            </div>
+            <a href="login.html" class="auth-btn" id="side-auth-button">Login</a>
+        </div>
+    </div>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Page Content -->
+    <div class="page-content active" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); min-height: 100vh; padding-top: 2rem;">
+        <div class="container">
+            <div style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); padding: 3rem 4rem; border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); max-width: 1200px; width: 95%; margin: 2rem auto;">
+                <h1 class="section-title" style="color: var(--primary-orange)">My Favourites</h1>
+                
+                <div id="favorites-container" class="favorites-grid">
+                </div>
+
+                <div id="empty-favorites" class="empty-state" style="display: none;">
+                    <h2>No Favourites Saved</h2>
+                    <p>You'll see all your favorites here, to make ordering even faster. Just look for the <i class="fas fa-heart" style="color: #F55B23;"></i></p>
+                    <a href="menu.html" class="btn btn-primary">LET'S FIND SOME FAVOURITES</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TARKA</h3>
+                    <p>Delivering happiness, one meal at a time. Experience the finest cuisine with our premium food delivery service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="menu.html" style="color: var(--text-light); text-decoration: none;">Menu</a></p>
+                    <p><a href="tracking.html" style="color: var(--text-light); text-decoration: none;">Track Order</a></p>
+                    <p><a href="home.html" style="color: var(--text-light); text-decoration: none;">Home</a></p>
+                    <p><a href="about.html" style="color: var(--text-light); text-decoration: none;">About Us</a></p>
+                    <p><a href="deals.html" style="color: var(--text-light); text-decoration: none;">Deals</a></p>
+                    <p><a href="contactus.html" style="color: var(--text-light); text-decoration: none;">Contact Us</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📞 +92 345 1234567</p>
+                    <p>📧 support@tarka.com</p>
+                    <p><i class="fas fa-map-marker-alt" style="color:red;"></i> 2000 Tipu Sultan Rd, I-8 Markaz, Islamabad</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TARKA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <button class="contrast-btn" id="contrastBtn" aria-label="Toggle High Contrast"> <i class="fas fa-adjust"></i> </button>
+    
+    <!-- Notification Toast -->
+    <div id="notification" class="notification"></div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+    <!-- SIDE NAVIGATION SCRIPT (SAME AS LOGIN.HTML) -->
+    <script>
+    // ===== SIDE NAVIGATION FUNCTIONALITY =====
+    const menuToggle = document.getElementById('menuToggle');
+    const sideNav = document.getElementById('sideNav');
+    const navOverlay = document.getElementById('navOverlay');
+
+    // Toggle side navigation
+    if (menuToggle && sideNav && navOverlay) {
+        menuToggle.addEventListener('click', function() {
+            sideNav.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+        });
+
+        // Close side navigation when clicking overlay
+        navOverlay.addEventListener('click', function() {
+            sideNav.classList.remove('active');
+            navOverlay.classList.remove('active');
+        });
+
+        // Close side navigation when clicking ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sideNav.classList.contains('active')) {
+                sideNav.classList.remove('active');
+                navOverlay.classList.remove('active');
+            }
+        });
+    }
+
+    // ===== BACKEND-ENABLED AUTH FUNCTIONS =====
+    const API_BASE_URL = 'http://localhost:3000';
+
+    function checkUserLoggedIn() {
+        const userId = localStorage.getItem('userId');
+        const userEmail = localStorage.getItem('userEmail');
+        return !!(userId && userEmail);
+    }
+
+    async function setUserLoggedIn(status) {
+        if (!status) {
+            // Logout - clear all local storage
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userData');
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('loginCount');
+            
+            // Optionally call backend logout endpoint if you have one
+            try {
+                await fetch(`${API_BASE_URL}/logout`, { method: 'POST' });
+            } catch (error) {
+                console.log('Backend logout optional');
+            }
+        } else {
+            localStorage.setItem('isLoggedIn', 'true');
+        }
+    }
+
+    async function updateSideNavigation() {
+        const sideAuthButton = document.getElementById('side-auth-button');
+        const sideUserInfo = document.getElementById('side-user-info');
+        const sideUserName = document.getElementById('side-user-name');
+        const sideProfileLink = document.getElementById('side-profile-link');
+        
+        if (checkUserLoggedIn()) {
+            const userEmail = localStorage.getItem('userEmail') || '';
+            const userName = userEmail.split('@')[0] || 'User';
+            
+            sideUserInfo.style.display = 'block';
+            sideUserName.textContent = userName;
+            sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> ${userName}`;
+            sideAuthButton.textContent = 'Logout';
+            sideAuthButton.href = '#';
+            sideAuthButton.onclick = async function(e) {
+                e.preventDefault();
+                await setUserLoggedIn(false);
+                localStorage.removeItem('tarkaCart');
+                localStorage.removeItem('tarkaCurrentOrder');
+                window.location.href = 'login.html';
+            };
+            
+            // Optional: Fetch user data from backend
+            try {
+                const userId = localStorage.getItem('userId');
+                if (userId) {
+                    const response = await fetch(`${API_BASE_URL}/user/${userId}`);
+                    if (response.ok) {
+                        const userData = await response.json();
+                        if (userData.success) {
+                            localStorage.setItem('userData', JSON.stringify(userData.user));
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('Optional: Could not fetch user details');
+            }
+        } else {
+            sideUserInfo.style.display = 'none';
+            sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> Profile`;
+            sideAuthButton.textContent = 'Login';
+            sideAuthButton.href = 'login.html';
+            sideAuthButton.onclick = null;
+        }
+    }
+
+    // === BACKEND HEALTH CHECK ===
+    async function checkBackendHealth() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/`, { 
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            return response.ok;
+        } catch (error) {
+            console.warn('Backend is not running. Using fallback mode.');
+            return false;
+        }
+    }
+
+    // Update cart count
+    function updateCartCount() {
+        const cartItems = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+        const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+        
+        const sideCartCount = document.getElementById('side-cart-count');
+        if (sideCartCount) {
+            sideCartCount.textContent = totalItems;
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', async function() {
+        const isBackendRunning = await checkBackendHealth();
+        
+        if (!isBackendRunning) {
+            console.log('Running in offline/fallback mode');
+        }
+        
+        updateSideNavigation();
+        updateCartCount();
+        
+        // Display favorites
+        displayFavorites();
+    });
+
+    // Favorites display function
+    function displayFavorites() {
+        const container = document.getElementById('favorites-container');
+        const emptyState = document.getElementById('empty-favorites');
+        
+        // Check localStorage for favorites
+        const savedFavorites = JSON.parse(localStorage.getItem('tarkaFavorites')) || [];
+
+        if (savedFavorites.length === 0) {
+            container.style.display = 'none';
+            emptyState.style.display = 'block';
+        } else {
+            emptyState.style.display = 'none';
+            container.style.display = 'grid';
+            container.innerHTML = '';
+
+            savedFavorites.forEach(item => {
+                container.innerHTML += `
+                    <div class="fav-card">
+                        <img src="${item.image}" alt="${item.name}" style="width: 100%; height: 180px; object-fit: cover;">
+                        <div style="padding: 15px;">
+                            <h3 style="margin: 0 0 5px 0; font-size: 1.2rem;">${item.name}</h3>
+                            <p style="color: #ff6b35; font-weight: bold; margin-bottom: 10px;">Rs. ${item.price}</p>
+                            <button onclick="removeFromFavorites('${item.id}')" style="color: #ff4757; border: none; background: none; cursor: pointer; font-weight: 500; padding: 0;">
+                                <i class="fas fa-trash-alt"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+    }
+    </script>
+</body>
+</html>

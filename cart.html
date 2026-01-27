@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - TARKA</title>
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="sidenav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="keyboardnavi.css">
+    <link rel="stylesheet" href="chatbox.css">
+</head>
+<body>
+
+
+<!-- Chatbox HTML -->
+<div class="ai-chat-btn AI_Assistant" title="Chat with Tarka Bot">
+    💬
+</div>
+<div id="ai-panel-overlay"></div>
+
+<!-- SIDE AI ASSISTANT PANEL -->
+<div id="ai-side-panel">
+   <div id="ai-panel-header">
+    Tarka Bot <span id="ai-panel-close">✖</span>
+   </div>
+   <div id="ai-panel-messages">
+    <div class="ai-welcome-message">
+        <!-- <span class="icon">🍔</span> -->
+     <h3>Welcome to Tarka Bot</h3>
+     <p>I'm here to help you explore our menu, browse burgers, pizzas, naan, curry, place your order, and enjoy delicious food!</p>
+     <div class="ai-quick-actions">
+      <div class="ai-quick-action" onclick="sendQuickMessage('What is delivery time?')">
+       ⏰ What is the delivery time?
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('Show me popular dishes')">
+       🍔 Show me popular dishes
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('How can I place an order?')">
+       🛒 How can I place an order?
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('Do you have vegetarian options?')">
+       🌱 Do you have vegetarian options?
+      </div>
+     </div>
+    </div>
+   </div>
+   <div id="ai-panel-input-container">
+     <input id="ai-panel-input" type="text" placeholder="Ask Tarka Bot..." aria-label="AI Assistant input"> 
+     <button id="ai-panel-send-btn" aria-label="Send message">Send</button>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Header with Menu Toggle -->
+    <div class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a href="home.html" class="logo">
+            TARKA
+        </a>
+        <div style="width: 40px;"></div>
+    </div>
+
+    <!-- Side Navigation -->
+    <div class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <a href="home.html" class="nav-logo">
+                <img src="logo (2).png" alt="Tarka Logo" class="nav-logo-img">
+                <span>TARKA</span>
+            </a>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+            <li>
+                <a href="cart.html" class="active">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Cart <span class="cart-count" id="side-cart-count">0</span>
+                </a>
+            </li>
+            <li><a href="tracking.html"><i class="fa-solid fa-location-dot"></i> Track Order</a></li>
+            <li><a href="userp.html" id="side-profile-link"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="orders.html"><i class="fa-solid fa-receipt"></i> My Orders</a></li>
+            <li><a href="deals.html"><i class="fa-solid fa-tags"></i> Deals</a></li>
+            <li><a href="favourites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+            <li><a href="contactus.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        </ul>
+        
+        <div class="nav-footer">
+            <div class="user-info" id="side-user-info" style="display: none;">
+                <i class="fas fa-user-circle"></i>
+                <span id="side-user-name">Loading...</span>
+            </div>
+            <a href="login.html" class="auth-btn" id="side-auth-button">Login</a>
+        </div>
+    </div>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Cart Page Content -->
+    <div class="page-content active" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); min-height: 100vh; padding-top: 2rem;">
+        <div class="container cart-container">
+            <!-- Page Title -->
+            <div style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); padding: 3rem 4rem; border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); max-width: 1200px; width: 95%; margin: 2rem auto;">
+                <h2 class="section-title" style="color: var(--primary-orange); text-align: center; margin-bottom: 2rem;">Your Cart</h2>
+                
+                <!-- Cart Items Container -->
+                <div id="cart-items-container">
+                    <div id="cart-items">
+                        <!-- Cart items will be populated by JavaScript -->
+                    </div>
+                    
+                    <!-- Empty Cart Message -->
+                    <div id="empty-cart" style="text-align: center; color: var(--text-light); margin: 3rem 0;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">🛒</div>
+                        <p style="font-size: 1.2rem;">Your cart is empty</p>
+                        <a href="menu.html" class="btn btn-primary" style="margin-top: 1rem; text-decoration: none;">Browse Menu</a>
+                    </div>
+                </div>
+                
+                <!-- Promo Code Section -->
+                <div class="promo-section" id="promo-section" style="display: none;">
+                    <h3 class="promo-title">🎟️ Have a Promo Code?</h3>
+                    <div class="promo-input-container">
+                        <input type="text" id="promo-input" class="promo-input" placeholder="Enter promo code " maxlength="20">
+                        <button onclick="applyPromoCode()" class="btn btn-primary">Apply</button>
+                    </div>
+                    <div id="promo-message" class="promo-message"></div>
+                </div>
+                
+                <!-- Cart Summary -->
+                <div id="cart-summary" class="cart-summary" style="display: none;">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span>Rs <span id="subtotal">0</span></span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Delivery Fee:</span>
+                        <span>Rs <span id="delivery-fee">150</span></span>
+                    </div>
+                    
+                    <div id="discount-line" class="summary-row discount-row">
+                        <span>Discount (<span id="discount-code"></span>):</span>
+                        <span>-Rs <span id="discount-amount">0</span></span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Tax (5%):</span>
+                        <span>Rs <span id="tax">0</span></span>
+                    </div>
+                    
+                    <hr class="summary-divider">
+                    
+                    <div class="summary-total">
+                        <span>Total:</span>
+                        <span>Rs <span id="total-amount">0</span></span>
+                    </div>
+                    
+                    <button onclick="proceedToCheckout()" class="btn btn-primary" style="width: 100%; padding: 1rem 2rem; font-size: 1.2rem; font-weight: 600;">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TARKA</h3>
+                    <p>Delivering happiness, one meal at a time. Experience the finest cuisine with our premium food delivery service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="menu.html" style="color: var(--text-light); text-decoration: none;">Menu</a></p>
+                    <p><a href="tracking.html" style="color: var(--text-light); text-decoration: none;">Track Order</a></p>
+                    <p><a href="home.html" style="color: var(--text-light); text-decoration: none;">Home</a></p>
+                    <p><a href="about.html" style="color: var(--text-light); text-decoration: none;">About Us</a></p>
+                    <p><a href="deals.html" style="color: var(--text-light); text-decoration: none;">Deals</a></p>
+                    <p><a href="contactus.html" style="color: var(--text-light); text-decoration: none;">Contact Us</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📞 +92 345 1234567</p>
+                    <p>📧 hello@tarka.com</p>
+                    <p>📍 123 Food Street, City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TARKA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+        <script src="chatbox.js"></script>
+    <!-- <button id="contrastToggle" class="contrast-btn">☀ Contrast</button> -->
+
+    <!-- FIXED CART PAGE SCRIPT -->
+    <script>
+        // ===== SIDE NAVIGATION FUNCTIONALITY =====
+        const menuToggle = document.getElementById('menuToggle');
+        const sideNav = document.getElementById('sideNav');
+        const navOverlay = document.getElementById('navOverlay');
+
+        if (menuToggle && sideNav && navOverlay) {
+            menuToggle.addEventListener('click', function() {
+                sideNav.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+            });
+
+            navOverlay.addEventListener('click', function() {
+                sideNav.classList.remove('active');
+                navOverlay.classList.remove('active');
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && sideNav.classList.contains('active')) {
+                    sideNav.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                }
+            });
+        }
+
+        // ===== AUTH FUNCTIONS =====
+        const API_BASE_URL = 'http://localhost:3000';
+
+        function checkUserLoggedIn() {
+            const userId = localStorage.getItem('userId');
+            const userEmail = localStorage.getItem('userEmail');
+            return !!(userId && userEmail);
+        }
+
+        async function updateSideNavigation() {
+            const sideAuthButton = document.getElementById('side-auth-button');
+            const sideUserInfo = document.getElementById('side-user-info');
+            const sideUserName = document.getElementById('side-user-name');
+            const sideProfileLink = document.getElementById('side-profile-link');
+            const sideCartCount = document.getElementById('side-cart-count');
+            
+            if (checkUserLoggedIn()) {
+                const userEmail = localStorage.getItem('userEmail') || '';
+                const userName = userEmail.split('@')[0] || 'User';
+                
+                sideUserInfo.style.display = 'block';
+                sideUserName.textContent = userName;
+                sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> ${userName}`;
+                sideAuthButton.textContent = 'Logout';
+                sideAuthButton.href = '#';
+                sideAuthButton.onclick = function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('userId');
+                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('userData');
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('tarkaCart');
+                    localStorage.removeItem('tarkaCurrentOrder');
+                    window.location.href = 'login.html';
+                };
+            } else {
+                sideUserInfo.style.display = 'none';
+                sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> Profile`;
+                sideAuthButton.textContent = 'Login';
+                sideAuthButton.href = 'login.html';
+                sideAuthButton.onclick = null;
+            }
+            
+            // Update cart count from global cart variable (from script.js)
+            const cart = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+            const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+            if (sideCartCount) {
+                sideCartCount.textContent = totalItems;
+            }
+        }
+
+        // ===== CART FUNCTIONS =====
+        async function loadCartFromBackend() {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                console.log('No user ID found, using localStorage');
+                return;
+            }
+
+            try {
+                console.log('🔄 Loading cart from backend for user:', userId);
+                const response = await fetch(`${API_BASE_URL}/api/cart/${userId}`);
+                
+                if (!response.ok) {
+                    console.log('❌ Cart API failed, using localStorage');
+                    return;
+                }
+                
+                const result = await response.json();
+                console.log('📦 Cart API response:', result);
+                
+                if (result.success && result.cart && result.cart.items) {
+                    // Transform backend cart items to match frontend format
+                    const transformedCart = result.cart.items.map(item => ({
+                        id: parseInt(item.product_id),
+                        name: item.name,
+                        price: item.price,
+                        quantity: item.quantity,
+                        image: item.image,
+                        category: 'unknown' // You might need to map this from your menuItems
+                    }));
+                    
+                    console.log('✅ Loaded cart from backend:', transformedCart);
+                    
+                    // Save to localStorage
+                    localStorage.setItem('tarkaCart', JSON.stringify(transformedCart));
+                    
+                    // Update global cart variable (if it exists)
+                    if (typeof cart !== 'undefined') {
+                        cart.length = 0;
+                        transformedCart.forEach(item => cart.push(item));
+                    }
+                    
+                    // Update UI
+                    updateCartDisplay();
+                    updateCartCount();
+                    
+                } else {
+                    console.log('⚠️ No cart items in backend response');
+                }
+            } catch (error) {
+                console.error('❌ Error loading cart from backend:', error);
+            }
+        }
+
+        // ===== PAGE INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🛒 Cart page loaded');
+            
+            // Update navigation
+            updateSideNavigation();
+            
+            // Check if user is logged in
+            if (!checkUserLoggedIn()) {
+                console.log('⚠️ User not logged in, showing empty cart');
+                // Show login prompt or empty cart message
+                return;
+            }
+            
+            // Try to load cart from backend
+            await loadCartFromBackend();
+            
+            // Then update the display using the existing function from script.js
+            if (typeof updateCartDisplay === 'function') {
+                console.log('🔄 Calling updateCartDisplay');
+                updateCartDisplay();
+            } else {
+                console.log('⚠️ updateCartDisplay function not found');
+                // Fallback: manually update UI
+                const cart = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+                if (cart.length > 0) {
+                    console.log('📦 Cart has items:', cart);
+                    renderCartItemsDirectly(cart);
+                } else {
+                    console.log('🛒 Cart is empty');
+                }
+            }
+            
+            // Update cart count in side navigation
+            const cart = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+            const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+            const sideCartCount = document.getElementById('side-cart-count');
+            if (sideCartCount) {
+                sideCartCount.textContent = totalItems;
+            }
+        });
+
+        // Fallback function if updateCartDisplay doesn't exist
+        function renderCartItemsDirectly(cartItems) {
+            console.log('🎨 Rendering cart items directly:', cartItems);
+            
+            const cartItemsContainer = document.getElementById('cart-items');
+            const emptyCart = document.getElementById('empty-cart');
+            const cartSummary = document.getElementById('cart-summary');
+            const promoSection = document.getElementById('promo-section');
+            
+            if (!cartItemsContainer) return;
+            
+            if (cartItems.length === 0) {
+                if (emptyCart) emptyCart.style.display = 'block';
+                if (cartSummary) cartSummary.style.display = 'none';
+                if (promoSection) promoSection.style.display = 'none';
+                cartItemsContainer.innerHTML = '';
+                return;
+            }
+            
+            if (emptyCart) emptyCart.style.display = 'none';
+            if (cartSummary) cartSummary.style.display = 'block';
+            if (promoSection) promoSection.style.display = 'block';
+            
+            cartItemsContainer.innerHTML = cartItems.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <img src="${item.image || 'default-food.jpg'}" alt="${item.name}" 
+                             onerror="this.src='default-food.jpg'">
+                    </div>
+                    
+                    <div class="cart-item-details">
+                        <h4 class="cart-item-name">${item.name}</h4>
+                        <p class="cart-item-price">Rs ${item.price}</p>
+                    </div>
+                    
+                    <div class="quantity-controls">
+                        <div class="quantity-selector">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="quantity-btn">-</button>
+                            <span class="quantity-display">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="quantity-btn">+</button>
+                        </div>
+                        
+                        <button onclick="removeFromCart(${item.id})" class="delete-btn" title="Remove from cart">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3,6 5,6 21,6"></polyline>
+                                <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Calculate and display totals
+            updateCartTotalsDirectly(cartItems);
+        }
+
+        function updateCartTotalsDirectly(cartItems) {
+            const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = subtotal > 0 ? 150 : 0;
+            const tax = Math.round(subtotal * 0.05);
+            const total = subtotal + deliveryFee + tax;
+
+            const subtotalElement = document.getElementById('subtotal');
+            const deliveryFeeElement = document.getElementById('delivery-fee');
+            const taxElement = document.getElementById('tax');
+            const totalElement = document.getElementById('total-amount');
+            
+            if (subtotalElement) subtotalElement.textContent = subtotal;
+            if (deliveryFeeElement) deliveryFeeElement.textContent = deliveryFee;
+            if (taxElement) taxElement.textContent = tax;
+            if (totalElement) totalElement.textContent = total;
+        }
+
+        // These functions should be available from script.js
+        // If not, define them here as fallbacks
+        if (typeof updateQuantity === 'undefined') {
+            window.updateQuantity = function(itemId, change) {
+                let cart = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+                const item = cart.find(i => i.id === itemId);
+                
+                if (item) {
+                    item.quantity += change;
+                    if (item.quantity <= 0) {
+                        cart = cart.filter(i => i.id !== itemId);
+                    }
+                    
+                    localStorage.setItem('tarkaCart', JSON.stringify(cart));
+                    
+                    // Update backend
+                    updateCartInBackend(cart);
+                    
+                    // Update UI
+                    renderCartItemsDirectly(cart);
+                    updateCartCount();
+                }
+            };
+        }
+
+        if (typeof removeFromCart === 'undefined') {
+            window.removeFromCart = function(itemId) {
+                let cart = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+                cart = cart.filter(i => i.id !== itemId);
+                
+                localStorage.setItem('tarkaCart', JSON.stringify(cart));
+                
+                // Update backend
+                updateCartInBackend(cart);
+                
+                // Update UI
+                renderCartItemsDirectly(cart);
+                updateCartCount();
+                showNotification('Item removed from cart');
+            };
+        }
+
+        async function updateCartInBackend(updatedCart) {
+            const userId = localStorage.getItem('userId');
+            if (!userId) return;
+
+            try {
+                // First, clear the cart
+                await fetch(`${API_BASE_URL}/api/cart/clear/${userId}`, {
+                    method: 'DELETE'
+                });
+
+                // Then add all items back
+                for (const item of updatedCart) {
+                    await fetch(`${API_BASE_URL}/api/cart/add`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            user_id: userId,
+                            item: {
+                                product_id: item.id.toString(),
+                                name: item.name,
+                                price: item.price,
+                                quantity: item.quantity,
+                                image: item.image,
+                                total: item.price * item.quantity
+                            }
+                        })
+                    });
+                }
+            } catch (error) {
+                console.error('Error updating cart in backend:', error);
+            }
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Update side nav cart count
+            const sideCartCount = document.getElementById('side-cart-count');
+            if (sideCartCount) {
+                sideCartCount.textContent = count;
+            }
+            
+            // Update any other cart count elements
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(element => {
+                element.textContent = count;
+            });
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: #F55B23;
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Make sure these functions are available globally
+        if (typeof applyPromoCode === 'undefined') {
+            window.applyPromoCode = function() {
+                const promoInput = document.getElementById('promo-input');
+                const promoMessage = document.getElementById('promo-message');
+                
+                if (!promoInput || !promoMessage) return;
+                
+                const promoCode = promoInput.value.trim().toUpperCase();
+                
+                const promoCodes = {
+                    'SAVE10': { discount: 10, type: 'percentage', description: '10% off' },
+                    'SAVE20': { discount: 20, type: 'percentage', description: '20% off' },
+                    'FLAT100': { discount: 100, type: 'fixed', description: 'Rs 100 off' }
+                };
+                
+                if (promoCodes[promoCode]) {
+                    showNotification(`Promo code applied: ${promoCodes[promoCode].description}`);
+                    promoInput.disabled = true;
+                } else {
+                    showNotification('Invalid promo code');
+                }
+            };
+        }
+
+        if (typeof proceedToCheckout === 'undefined') {
+            window.proceedToCheckout = function() {
+                const cart = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+                
+                if (cart.length === 0) {
+                    showNotification('Your cart is empty!');
+                    return;
+                }
+                
+                // Save cart state for checkout page
+                const checkoutState = {
+                    cart: cart,
+                    appliedPromo: null,
+                    subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                    discount: 0,
+                    total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 150
+                };
+                
+                localStorage.setItem('tarkaCheckoutState', JSON.stringify(checkoutState));
+                
+                // Redirect to checkout
+                window.location.href = 'checkout.html';
+            };
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            
+            .cart-item {
+                display: flex;
+                align-items: center;
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+                background: white;
+                border-radius: 15px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                transition: transform 0.2s ease;
+            }
+            
+            .cart-item:hover {
+                transform: translateY(-2px);
+            }
+            
+            .cart-item-image {
+                flex-shrink: 0;
+                width: 100px;
+                height: 100px;
+                margin-right: 1.5rem;
+            }
+            
+            .cart-item-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+            
+            .cart-item-details {
+                flex-grow: 1;
+            }
+            
+            .cart-item-name {
+                margin: 0 0 0.5rem 0;
+                color: var(--text-dark);
+                font-size: 1.2rem;
+            }
+            
+            .cart-item-price {
+                margin: 0;
+                color: var(--primary-orange);
+                font-weight: 600;
+                font-size: 1.1rem;
+            }
+            
+            .quantity-controls {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .quantity-selector {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: #f8f9fa;
+                border-radius: 25px;
+                padding: 0.5rem 1rem;
+            }
+            
+           .quantity-btn {
+    background: var(--primary-orange);
+    border: 2px solid var(--primary-orange);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.quantity-btn:hover {
+    background: var(--primary-orange);
+    border-color: var(--primary-orange);
+    color: var(--primary-orange);
+}
+
+            
+            .quantity-display {
+                font-weight: 600;
+                min-width: 30px;
+                text-align: center;
+            }
+            
+            .delete-btn {
+                background: #ffeaea;
+                border: none;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                color: #dc3545;
+                transition: all 0.2s ease;
+            }
+            
+            .delete-btn:hover {
+                background: #dc3545;
+                color: white;
+                transform: scale(1.1);
+            }
+            
+            .promo-section {
+                margin: 2rem 0;
+                padding: 1.5rem;
+                background: white;
+                border-radius: 15px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            
+            .promo-title {
+                margin: 0 0 1rem 0;
+                color: var(--text-dark);
+            }
+            
+            .promo-input-container {
+                display: flex;
+                gap: 1rem;
+            }
+            
+            .promo-input {
+                flex-grow: 1;
+                padding: 0.8rem 1.2rem;
+                border: 2px solid #e9ecef;
+                border-radius: 10px;
+                font-size: 1rem;
+            }
+            
+            .cart-summary {
+                margin-top: 2rem;
+                padding: 2rem;
+                background: white;
+                border-radius: 15px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            
+            .summary-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.8rem;
+                color: var(--text-light);
+            }
+            
+            .summary-total {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 1.5rem;
+                padding-top: 1.5rem;
+                border-top: 2px solid #e9ecef;
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: var(--text-dark);
+            }
+            
+            .btn-primary {
+                background: linear-gradient(135deg, var(--primary-orange), var(--primary-yellow));
+                color: white;
+                border: none;
+                padding: 0.8rem 2rem;
+                border-radius: 25px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(245, 91, 35, 0.3);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

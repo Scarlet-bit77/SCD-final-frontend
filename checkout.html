@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - TARKA</title>
+    <link rel="stylesheet" href="checkoutstyle.css">
+    <link rel="stylesheet" href="sidenav.css">
+    <link rel="stylesheet" href="keyboardnavi.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="chatbox.css">
+</head>
+<body>
+
+
+<!-- Chatbox HTML -->
+<div class="ai-chat-btn AI_Assistant" title="Chat with Tarka Bot">
+    💬
+</div>
+<div id="ai-panel-overlay"></div>
+
+<!-- SIDE AI ASSISTANT PANEL -->
+<div id="ai-side-panel">
+   <div id="ai-panel-header">
+    Tarka Bot <span id="ai-panel-close">✖</span>
+   </div>
+   <div id="ai-panel-messages">
+    <div class="ai-welcome-message">
+        <!-- <span class="icon">🍔</span> -->
+     <h3>Welcome to Tarka Bot</h3>
+     <p>I'm here to help you explore our menu, browse burgers, pizzas, naan, curry, place your order, and enjoy delicious food!</p>
+     <div class="ai-quick-actions">
+      <div class="ai-quick-action" onclick="sendQuickMessage('What is delivery time?')">
+       ⏰ What is the delivery time?
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('Show me popular dishes')">
+       🍔 Show me popular dishes
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('How can I place an order?')">
+       🛒 How can I place an order?
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('Do you have vegetarian options?')">
+       🌱 Do you have vegetarian options?
+      </div>
+     </div>
+    </div>
+   </div>
+   <div id="ai-panel-input-container">
+     <input id="ai-panel-input" type="text" placeholder="Ask Tarka Bot..." aria-label="AI Assistant input"> 
+     <button id="ai-panel-send-btn" aria-label="Send message">Send</button>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Header with Menu Toggle (SAME AS LOGIN.HTML) -->
+    <div class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a href="home.html" class="logo">
+            TARKA
+        </a>
+        <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+    </div>
+
+    <!-- Side Navigation (SAME AS LOGIN.HTML) -->
+    <div class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <a href="home.html" class="nav-logo">
+                <img src="logo (2).png" alt="Tarka Logo" class="nav-logo-img">
+                <span>TARKA</span>
+            </a>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+            <li>
+                <a href="cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Cart <span class="cart-count" id="side-cart-count">0</span>
+                </a>
+            </li>
+            <li><a href="tracking.html"><i class="fa-solid fa-location-dot"></i> Track Order</a></li>
+            <li><a href="userp.html" id="side-profile-link"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="orders.html"><i class="fa-solid fa-receipt"></i> My Orders</a></li>
+            <li><a href="deals.html"><i class="fa-solid fa-tags"></i> Deals</a></li>
+            <li><a href="favourites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+            <li><a href="contactus.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        </ul>
+        
+        <div class="nav-footer">
+            <div class="user-info" id="side-user-info" style="display: none;">
+                <i class="fas fa-user-circle"></i>
+                <span id="side-user-name">Loading...</span>
+            </div>
+            <a href="login.html" class="auth-btn" id="side-auth-button">Login</a>
+        </div>
+    </div>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Checkout Page Content -->
+    <div class="page-content active checkout-page">
+        <div class="container">
+            <div class="checkout-container">
+                <!-- Page Header -->
+                <div class="checkout-header">
+                    <h2 class="section-title">Checkout</h2>
+
+                    <div class="checkout-progress">
+                        <div class="progress-step active">
+                            <div class="step-number">1</div>
+                            <span class="step-text">Cart</span>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="step-number">2</div>
+                            <span class="step-text">Details</span>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-number">3</div>
+                            <span class="step-text">Payment</span>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-number">4</div>
+                            <span class="step-text">Confirmation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-content">
+                    <!-- Checkout Form -->
+                    <div class="checkout-form-section">
+                        <form class="checkout-form" onsubmit="handleCheckout(event)">
+                            <!-- Order Review -->
+                            <div class="form-section">
+                                <h3 class="form-section-title">
+                                    <span class="form-icon">🛒</span>
+                                    Order Review
+                                </h3>
+                                <div class="order-review">
+                                    <div class="cart-items-preview" id="cart-items-preview">
+                                        <!-- Dynamic cart items from script.js -->
+                                    </div>
+                                    <div class="item-count">Total items: <span id="item-count">0</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Delivery Information -->
+                            <div class="form-section">
+                                <h3 class="form-section-title">
+                                    <span class="form-icon">📍</span>
+                                    Delivery Information
+                                </h3>
+                                
+                                <!-- Update your form inputs like this: -->
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="fullName">Full Name</label>
+                                        <input type="text" id="fullName" placeholder="Enter your full name" 
+                                            required minlength="2" maxlength="50">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input type="tel" id="phone" placeholder="Enter your phone number" 
+                                            required pattern="[0-9]{11}" title="Please enter exactly 11 digits">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address">Delivery Address</label>
+                                    <input type="text" id="address" placeholder="Start typing your address..." 
+                                        required minlength="5">
+                                </div>
+                                
+                                <!-- Delivery Time -->
+                                <div class="form-group">
+                                    <label for="delivery-time">Preferred Delivery Time</label>
+                                    <div class="delivery-time-options">
+                                        <div class="time-option">
+                                            <input type="radio" id="asap" name="deliveryTime" value="asap" checked>
+                                            <label for="asap">
+                                                <span class="time-type">ASAP</span>
+                                                <span class="time-estimate">~25-35 min</span>
+                                            </label>
+                                        </div>
+                                        <div class="time-option">
+                                            <input type="radio" id="schedule" name="deliveryTime" value="schedule">
+                                            <label for="schedule">
+                                                <span class="time-type">Schedule</span>
+                                                <span class="time-estimate">~35-45 min</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="schedule-time" id="schedule-time" style="display: none;">
+                                        <input type="datetime-local" id="delivery-date-time">
+                                    </div>
+                                </div>
+                                
+                                <!-- Delivery Instructions -->
+                                <div class="form-group">
+                                    <label for="delivery-instructions">Delivery Instructions</label>
+                                    <div class="instruction-options">
+                                        <button type="button" class="instruction-option" data-instruction="Leave at door">
+                                            🚪 Leave at door
+                                        </button>
+                                        <button type="button" class="instruction-option" data-instruction="Call on arrival">
+                                            📞 Call on arrival
+                                        </button>
+                                        <button type="button" class="instruction-option" data-instruction="Office delivery">
+                                            🏢 Office delivery
+                                        </button>
+                                    </div>
+                                    <textarea id="delivery-instructions" placeholder="Any special instructions..."></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Payment Method -->
+                            <div class="form-section">
+                                <h3 class="form-section-title">
+                                    <span class="form-icon">💳</span>
+                                    Payment Method
+                                </h3>
+                                
+                                <div class="payment-options">
+                                    <div class="payment-option">
+                                        <input type="radio" id="card" name="payment" value="card" required>
+                                        <label for="card">
+                                            <span class="payment-icon">💳</span>
+                                            <span class="payment-text">
+                                                <strong>Credit/Debit Card</strong>
+                                                <small>Pay securely with your card</small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="payment-option">
+                                        <input type="radio" id="cash" name="payment" value="cash">
+                                        <label for="cash">
+                                            <span class="payment-icon">💰</span>
+                                            <span class="payment-text">
+                                                <strong>Cash on Delivery</strong>
+                                                <small>Pay when you receive your order</small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card Details -->
+                                <div class="card-details" id="card-details">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="cardNumber">Card Number</label>
+                                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="expiryDate">Expiry Date</label>
+                                            <input type="text" id="expiryDate" placeholder="MM/YY">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cvv">CVV</label>
+                                            <input type="text" id="cvv" placeholder="123">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Payment Security -->
+                                <div class="payment-security">
+                                    <div class="payment-methods">
+                                        <span>We Accept:</span>
+                                        <div class="payment-icons">
+                                            <span class="payment-method-icon">💳</span>
+                                            <span class="payment-method-icon">📱</span>
+                                            <span class="payment-method-icon">🏦</span>
+                                        </div>
+                                    </div>
+                                    <div class="encryption-notice">
+                                        <small>🔒 Your payment information is encrypted and secure</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Save Information -->
+                            <div class="save-info-section">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="save-address">
+                                    <label for="save-address">Save this address for future orders</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="newsletter" checked>
+                                    <label for="newsletter">Receive special offers and updates</label>
+                                </div>
+                            </div>
+
+                            <!-- Security Badges -->
+                            <div class="security-section">
+                                <div class="security-badges">
+                                    <div class="badge">
+                                        <span class="badge-icon">🔒</span>
+                                        <span>Secure Payment</span>
+                                    </div>
+                                    <div class="badge">
+                                        <span class="badge-icon">🚚</span>
+                                        <span>Free Delivery After every 2 orders!</span>
+                                    </div>
+                                    <div class="badge">
+                                        <span class="badge-icon">⭐</span>
+                                        <span>4.8/5 Rating</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Order Summary -->
+                            <div class="order-summary-section">
+                                <div class="summary-header">
+                                    <h3 class="form-section-title">
+                                        <span class="form-icon">📋</span>
+                                        Order Summary
+                                    </h3>
+                                    <button type="button" class="toggle-details" id="toggle-details">
+                                        <span>Show Details</span>
+                                        <span class="toggle-icon">▼</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="order-details-collapsible" id="order-details" style="display: none;">
+                                    <div class="order-items" id="order-items">
+                                        <!-- Dynamic order items from script.js -->
+                                    </div>
+                                </div>
+                                
+                                <div class="order-totals">
+                                    <div class="total-row">
+                                        <span>Subtotal</span>
+                                        <span id="subtotal">Rs0.00</span>
+                                    </div>
+                                    <div class="total-row">
+                                        <span>Delivery Fee</span>
+                                        <span id="delivery-fee">Rs0.00</span>
+                                    </div>
+                                    <div class="total-row">
+                                        <span>Tax</span>
+                                        <span id="tax">Rs0.00</span>
+                                    </div>
+                                   
+                                    <div class="total-row grand-total">
+                                        <span>Total</span>
+                                        <span>Rs<span id="checkout-total">0.00</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Place Order Button -->
+                            <button type="submit" class="btn btn-primary btn-large checkout-btn">
+                                Place Order
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TARKA</h3>
+                    <p>Delivering happiness, one meal at a time. Experience the finest cuisine with our premium food delivery service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="menu.html" style="color: var(--text-light); text-decoration: none;">Menu</a></p>
+                    <p><a href="tracking.html" style="color: var(--text-light); text-decoration: none;">Track Order</a></p>
+                    <p><a href="home.html" style="color: var(--text-light); text-decoration: none;">Home</a></p>
+                    <p><a href="about.html" style="color: var(--text-light); text-decoration: none;">About Us</a></p>
+                    <p><a href="deals.html" style="color: var(--text-light); text-decoration: none;">Deals</a></p>
+                    <p><a href="contactus.html" style="color: var(--text-light); text-decoration: none;">Contact Us</a></p>
+                
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📞 +92 345 1234567</p>
+                    <p>📧 hello@tarka.com</p>
+                    <p>📍 123 Food Street, City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TARKA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script src="chatbox.js"></script>
+    <!-- <button id="contrastToggle" class="contrast-btn">☀ Contrast</button> -->
+
+    <!-- SIDE NAVIGATION SCRIPT (SAME AS LOGIN.HTML) -->
+    <script>
+    // ===== SIDE NAVIGATION FUNCTIONALITY =====
+    const menuToggle = document.getElementById('menuToggle');
+    const sideNav = document.getElementById('sideNav');
+    const navOverlay = document.getElementById('navOverlay');
+
+    // Toggle side navigation
+    if (menuToggle && sideNav && navOverlay) {
+        menuToggle.addEventListener('click', function() {
+            sideNav.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+        });
+
+        // Close side navigation when clicking overlay
+        navOverlay.addEventListener('click', function() {
+            sideNav.classList.remove('active');
+            navOverlay.classList.remove('active');
+        });
+
+        // Close side navigation when clicking ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sideNav.classList.contains('active')) {
+                sideNav.classList.remove('active');
+                navOverlay.classList.remove('active');
+            }
+        });
+    }
+
+    // ===== BACKEND-ENABLED AUTH FUNCTIONS =====
+    const API_BASE_URL = 'http://localhost:3000';
+
+    function checkUserLoggedIn() {
+        const userId = localStorage.getItem('userId');
+        const userEmail = localStorage.getItem('userEmail');
+        return !!(userId && userEmail);
+    }
+
+    async function setUserLoggedIn(status) {
+        if (!status) {
+            // Logout - clear all local storage
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userData');
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('loginCount');
+            
+            // Optionally call backend logout endpoint if you have one
+            try {
+                await fetch(`${API_BASE_URL}/logout`, { method: 'POST' });
+            } catch (error) {
+                console.log('Backend logout optional');
+            }
+        } else {
+            localStorage.setItem('isLoggedIn', 'true');
+        }
+    }
+
+    async function updateSideNavigation() {
+        const sideAuthButton = document.getElementById('side-auth-button');
+        const sideUserInfo = document.getElementById('side-user-info');
+        const sideUserName = document.getElementById('side-user-name');
+        const sideProfileLink = document.getElementById('side-profile-link');
+        
+        if (checkUserLoggedIn()) {
+            const userEmail = localStorage.getItem('userEmail') || '';
+            const userName = userEmail.split('@')[0] || 'User';
+            
+            sideUserInfo.style.display = 'block';
+            sideUserName.textContent = userName;
+            sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> ${userName}`;
+            sideAuthButton.textContent = 'Logout';
+            sideAuthButton.href = '#';
+            sideAuthButton.onclick = async function(e) {
+                e.preventDefault();
+                await setUserLoggedIn(false);
+                localStorage.removeItem('tarkaCart');
+                localStorage.removeItem('tarkaCurrentOrder');
+                window.location.href = 'login.html';
+            };
+            
+            // Optional: Fetch user data from backend
+            try {
+                const userId = localStorage.getItem('userId');
+                if (userId) {
+                    const response = await fetch(`${API_BASE_URL}/user/${userId}`);
+                    if (response.ok) {
+                        const userData = await response.json();
+                        if (userData.success) {
+                            localStorage.setItem('userData', JSON.stringify(userData.user));
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('Optional: Could not fetch user details');
+            }
+        } else {
+            sideUserInfo.style.display = 'none';
+            sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> Profile`;
+            sideAuthButton.textContent = 'Login';
+            sideAuthButton.href = 'login.html';
+            sideAuthButton.onclick = null;
+        }
+    }
+
+    // === BACKEND HEALTH CHECK ===
+    async function checkBackendHealth() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/`, { 
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            return response.ok;
+        } catch (error) {
+            console.warn('Backend is not running. Using fallback mode.');
+            return false;
+        }
+    }
+
+    // Update cart count
+    function updateCartCount() {
+        const cartItems = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+        const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+        
+        const sideCartCount = document.getElementById('side-cart-count');
+        if (sideCartCount) {
+            sideCartCount.textContent = totalItems;
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', async function() {
+        const isBackendRunning = await checkBackendHealth();
+        
+        if (!isBackendRunning) {
+            console.log('Running in offline/fallback mode');
+        }
+        
+        updateSideNavigation();
+        updateCartCount();
+    });
+    </script>
+    
+    <!-- ===== FIXED: CHECKOUT FUNCTION THAT SAVES TO BOTH DATABASE AND LOCALSTORAGE ===== -->
+    <script>
+    async function handleCheckout(event) {
+        event.preventDefault();
+        
+        console.log('🚀 CHECKOUT STARTED - Saving to both database AND localStorage');
+        
+        // Disable button to prevent double submission
+        const submitBtn = event.target.querySelector('.checkout-btn');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        }
+        
+        // ===== 1. GET FORM VALUES =====
+        const fullName = document.getElementById('fullName')?.value.trim() || '';
+        const phone = document.getElementById('phone')?.value.trim() || '';
+        const address = document.getElementById('address')?.value.trim() || '';
+        const deliveryTime = document.querySelector('input[name="deliveryTime"]:checked')?.value || 'asap';
+        const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value || 'cash';
+        const instructions = document.getElementById('delivery-instructions')?.value.trim() || '';
+        
+        // ===== 2. VALIDATE FORM =====
+        if (!fullName || !phone || !address) {
+            alert('Please fill in all required fields!');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Place Order';
+            }
+            return;
+        }
+        
+        if (!/^\d{11}$/.test(phone)) {
+            alert('Please enter a valid 11-digit phone number!');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Place Order';
+            }
+            return;
+        }
+        
+        // ===== 3. GET CART AND USER INFO =====
+        const user_id = localStorage.getItem('userId');
+        const userEmail = localStorage.getItem('userEmail');
+        
+        if (!user_id || !userEmail) {
+            alert('You must be logged in to place an order!');
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        const cartItems = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+        if (cartItems.length === 0) {
+            alert('Your cart is empty!');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Place Order';
+            }
+            return;
+        }
+        
+        // ===== 4. CALCULATE TOTALS =====
+        const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const deliveryFee = subtotal > 0 ? 150 : 0;
+        const tax = Math.round(subtotal * 0.05);
+        const total_amount = subtotal + deliveryFee + tax;
+        
+        // ===== 5. GENERATE ORDER ID FOR TRACKING =====
+        function generateOrderId() {
+            const randomNumber = Math.floor(Math.random() * 90000) + 10000;
+            return `#TKA${randomNumber}`;
+        }
+        
+        const orderId = generateOrderId();
+        const estimatedTime = deliveryTime === 'asap' ? '25-35 minutes' : '35-45 minutes';
+        
+        // ===== 6. CREATE ORDER FOR LOCALSTORAGE TRACKING =====
+        const trackingOrderData = {
+            orderId: orderId,
+            id: orderId,
+            email: userEmail,
+            items: JSON.parse(JSON.stringify(cartItems)),
+            total: parseFloat(total_amount.toFixed(2)),
+            subtotal: parseFloat(subtotal.toFixed(2)),
+            deliveryFee: parseFloat(deliveryFee.toFixed(2)),
+            tax: parseFloat(tax.toFixed(2)),
+            fullName: fullName,
+            phone: phone,
+            address: address,
+            deliveryTime: deliveryTime,
+            estimatedDelivery: estimatedTime,
+            paymentMethod: paymentMethod,
+            instructions: instructions || '',
+            status: 'confirmed',
+            timestamp: new Date().toISOString()
+        };
+        
+        console.log('📦 Created tracking order data:', trackingOrderData);
+        
+        // ===== 7. SAVE TO LOCALSTORAGE (CRITICAL FOR TRACKING) =====
+        localStorage.setItem('tarkaCurrentOrder', JSON.stringify(trackingOrderData));
+        localStorage.setItem('tarkaOrderDetails', JSON.stringify(trackingOrderData));
+        localStorage.setItem('tarkaLastOrderId', orderId);
+        
+        // Also save to orders history
+        try {
+            let orders = JSON.parse(localStorage.getItem('tarkaOrders') || '[]');
+            orders.push(trackingOrderData);
+            localStorage.setItem('tarkaOrders', JSON.stringify(orders));
+            console.log('✅ Order saved to tarkaOrders history');
+        } catch (error) {
+            console.warn('⚠️ Could not save to orders history:', error);
+        }
+        
+        console.log('💾 ORDER SAVED TO LOCALSTORAGE FOR TRACKING:', orderId);
+        
+        // ===== 8. SAVE PROFILE INFO IF CHECKED =====
+        if (document.getElementById('save-address') && document.getElementById('save-address').checked) {
+            const savedProfile = JSON.parse(localStorage.getItem('tarkaProfile') || '{}');
+            if (!savedProfile[userEmail]) {
+                savedProfile[userEmail] = {};
+            }
+            savedProfile[userEmail].phone = phone;
+            savedProfile[userEmail].address = address;
+            savedProfile[userEmail].lastUpdated = new Date().toISOString();
+            localStorage.setItem('tarkaProfile', JSON.stringify(savedProfile));
+            console.log('💾 Profile information saved to localStorage');
+        }
+        
+        // ===== 9. SEND TO DATABASE =====
+        const orderData = {
+            user_id: user_id,
+            delivery_address: address,
+            delivery_time: deliveryTime,
+            payment_method: paymentMethod,
+            notes: instructions,
+            items: cartItems,
+            total_amount: total_amount,
+            order_id: orderId, // Include orderId for database
+            customer_name: fullName,
+            phone: phone,
+            email: userEmail
+        };
+        
+        let databaseSuccess = false;
+        
+        try {
+            console.log('📤 Sending order to database...');
+            const response = await fetch('http://localhost:3000/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData),
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+                databaseSuccess = true;
+                console.log('✅ Order saved to database successfully:', result);
+            } else {
+                console.warn('⚠️ Database save failed:', result.message || 'Unknown error');
+            }
+        } catch (error) {
+            console.error('❌ Database connection error:', error);
+            // Continue anyway - we have localStorage backup
+        }
+        
+        // ===== 10. CLEAR CART BUT KEEP ORDER FOR TRACKING =====
+        localStorage.removeItem('tarkaCart');
+        console.log('🛒 Cart cleared');
+        
+        // Update cart count display
+        const cartCountElements = document.querySelectorAll('.cart-count, #side-cart-count');
+        cartCountElements.forEach(element => {
+            element.textContent = '0';
+        });
+        
+   // ===== 11. REDIRECT WITHOUT ALERT =====
+console.log('🎉 Checkout completed successfully!');
+
+setTimeout(() => {
+    // Directly redirect to confirmation page
+    window.location.href = 'confirmation.html';
+}, 200); // small delay to ensure localStorage updates
+    }
+    
+    // ===== DEBUG: Check localStorage status =====
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('=== CHECKOUT PAGE DEBUG ===');
+        console.log('1. Current cart items:', JSON.parse(localStorage.getItem('tarkaCart') || '[]'));
+        console.log('2. Current order in localStorage:', localStorage.getItem('tarkaCurrentOrder'));
+        console.log('3. User logged in:', localStorage.getItem('userId'));
+        console.log('=== END DEBUG ===');
+    });
+    </script>
+</body>
+</html>

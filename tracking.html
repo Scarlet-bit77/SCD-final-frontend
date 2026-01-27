@@ -1,0 +1,713 @@
+<!-- tracking.html - UPDATED VERSION -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - TARKA</title>
+    <link rel="stylesheet" href="tracking.css">
+    <link rel="stylesheet" href="sidenav.css">
+    <link rel="stylesheet" href="keyboardnavi.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <link rel="stylesheet" href="chatbox.css"> 
+    <style>
+        /* Video background styling */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.6);
+        }
+        
+        /* Adjust page content for side nav */
+        .page-content {
+            transition: margin-left 0.3s ease;
+        }
+        
+        /* Tracking specific styles */
+        .tracking-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .tracking-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: #ddd;
+            z-index: 1;
+        }
+        
+        .tracking-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .step-circle.completed {
+            background: #28a745;
+            color: white;
+        }
+        
+        .step-circle.active {
+            background: #F55B23;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 0 0 3px rgba(245, 91, 35, 0.2);
+        }
+        
+        .progress-bar {
+            width: 80%;
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
+            margin: 2rem auto;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #F55B23, #FF7A47);
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- Chatbox HTML -->
+<div class="ai-chat-btn AI_Assistant" title="Chat with Tarka Bot">
+    💬
+</div>
+<div id="ai-panel-overlay"></div>
+
+<!-- SIDE AI ASSISTANT PANEL -->
+<div id="ai-side-panel">
+   <div id="ai-panel-header">
+    Tarka Bot <span id="ai-panel-close">✖</span>
+   </div>
+   <div id="ai-panel-messages">
+    <div class="ai-welcome-message">
+        <!-- <span class="icon">🍔</span> -->
+     <h3>Welcome to Tarka Bot</h3>
+     <p>I'm here to help you explore our menu, browse burgers, pizzas, naan, curry, place your order, and enjoy delicious food!</p>
+     <div class="ai-quick-actions">
+      <div class="ai-quick-action" onclick="sendQuickMessage('What is delivery time?')">
+       ⏰ What is the delivery time?
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('Show me popular dishes')">
+       🍔 Show me popular dishes
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('How can I place an order?')">
+       🛒 How can I place an order?
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('Do you have vegetarian options?')">
+       🌱 Do you have vegetarian options?
+      </div>
+     </div>
+    </div>
+   </div>
+   <div id="ai-panel-input-container">
+     <input id="ai-panel-input" type="text" placeholder="Ask Tarka Bot..." aria-label="AI Assistant input"> 
+     <button id="ai-panel-send-btn" aria-label="Send message">Send</button>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 🔹 Background Video -->
+    <video autoplay muted loop id="bg-video">
+        <source src="foodprep.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+    
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Header with Menu Toggle (EXACTLY SAME AS LOGIN.HTML) -->
+    <div class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a href="home.html" class="logo">
+            TARKA
+        </a>
+        <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+    </div>
+
+    <!-- Side Navigation (EXACTLY SAME AS LOGIN.HTML) -->
+    <div class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <a href="home.html" class="nav-logo">
+                <img src="logo (2).png" alt="Tarka Logo" class="nav-logo-img">
+                <span>TARKA</span>
+            </a>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+            <li>
+                <a href="cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Cart <span class="cart-count" id="side-cart-count">0</span>
+                </a>
+            </li>
+            <li><a href="tracking.html" class="active"><i class="fa-solid fa-location-dot"></i> Track Order</a></li>
+            <li><a href="userp.html" id="side-profile-link"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="orders.html"><i class="fa-solid fa-receipt"></i> My Orders</a></li>
+            <li><a href="deals.html"><i class="fa-solid fa-tags"></i> Deals</a></li>
+            <li><a href="favourites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+            <li><a href="contactus.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+             <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        </ul>
+        
+        <div class="nav-footer">
+            <div class="user-info" id="side-user-info" style="display: none;">
+                <i class="fas fa-user-circle"></i>
+                <span id="side-user-name">Loading...</span>
+            </div>
+            <a href="login.html" class="auth-btn" id="side-auth-button">Login</a>
+        </div>
+    </div>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Order Tracking Page Content -->
+    <div class="page-content active" style="background: linear-gradient(135deg, rgba(255, 243, 205, 0.2), rgba(245, 91, 35, 0.1)); min-height: 100vh; padding-top: 2rem;">
+        <div class="container tracking-container">
+            <!-- Page Title -->
+            <h2 class="section-title">Track Your Order</h2>
+            <!-- Tracking Content Container -->
+            <div id="tracking-content">
+                <!-- Content will be dynamically populated by JavaScript -->
+                <div style="text-align: center; padding: 3rem;">
+                    <div class="loading-spinner" style="font-size: 2rem; margin-bottom: 1rem;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                    <p>Loading order tracking...</p>
+                </div>
+            </div>
+        </div>            
+    </div>    
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TARKA</h3>
+                    <p>Delivering happiness, one meal at a time. Experience the finest cuisine with our premium food delivery service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="menu.html" style="color: var(--text-light); text-decoration: none;">Menu</a></p>
+                    <p><a href="tracking.html" style="color: var(--text-light); text-decoration: none;">Track Order</a></p>
+                    <p><a href="home.html" style="color: var(--text-light); text-decoration: none;">Home</a></p>
+                    <p><a href="about.html" style="color: var(--text-light); text-decoration: none;">About Us</a></p>
+                    <p><a href="deals.html" style="color: var(--text-light); text-decoration: none;">Deals</a></p>
+                    <p><a href="contactus.html" style="color: var(--text-light); text-decoration: none;">Contact Us</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📞 +92 345 1234567</p>
+                    <p>📧 support@tarka.com</p>
+                    <p> <i class="fas fa-map-marker-alt" style="color:red"></i> 2000 Tipu Sultan Rd, I-8 Markaz, Islamabad</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TARKA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <button class="contrast-btn" id="contrastBtn" aria-label="Toggle High Contrast"> <i class="fas fa-adjust"></i> </button>
+
+    <!-- JavaScript - LINK TO MAIN SCRIPT ONLY -->
+    <script src="script.js"></script>
+     <script src="chatbox.js"></script>
+    
+    <!-- ===== TRACKING PAGE SPECIFIC INITIALIZATION ===== -->
+    <script>
+    // ===== TRACKING PAGE FUNCTIONALITY =====
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('📱 Tracking page loaded');
+        
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isLoggedIn) {
+            showLoginRequired();
+            return;
+        }
+        
+        // Load and display order
+        loadAndDisplayOrder();
+        
+        // Setup navigation
+        setupNavigation();
+    });
+    
+    // ===== 1. LOAD AND DISPLAY ORDER =====
+    function loadAndDisplayOrder() {
+        console.log('🔄 Loading order for tracking...');
+        
+        // Check multiple sources for the order
+        let order = null;
+        
+        // First, check current order
+        const currentOrderJson = localStorage.getItem('tarkaCurrentOrder');
+        if (currentOrderJson) {
+            try {
+                order = JSON.parse(currentOrderJson);
+                console.log('✅ Loaded from tarkaCurrentOrder:', order.orderId);
+            } catch (e) {
+                console.error('❌ Error parsing current order:', e);
+            }
+        }
+        
+        // If no current order, check order details
+        if (!order) {
+            const orderDetailsJson = localStorage.getItem('tarkaOrderDetails');
+            if (orderDetailsJson) {
+                try {
+                    order = JSON.parse(orderDetailsJson);
+                    console.log('✅ Loaded from tarkaOrderDetails:', order.orderId);
+                } catch (e) {
+                    console.error('❌ Error parsing order details:', e);
+                }
+            }
+        }
+        
+        // If still no order, check orders history
+        if (!order) {
+            const orders = JSON.parse(localStorage.getItem('tarkaOrders') || '[]');
+            const userEmail = localStorage.getItem('userEmail');
+            if (userEmail && orders.length > 0) {
+                // Get the user's most recent order
+                const userOrders = orders.filter(o => o.email === userEmail);
+                if (userOrders.length > 0) {
+                    order = userOrders[userOrders.length - 1];
+                    console.log('✅ Loaded from tarkaOrders history:', order.orderId);
+                    
+                    // Save as current order for tracking
+                    localStorage.setItem('tarkaCurrentOrder', JSON.stringify(order));
+                }
+            }
+        }
+        
+        // Display the order
+        if (order) {
+            displayOrderTracking(order);
+            
+            // Start simulation if not delivered
+            if (order.status !== 'delivered') {
+                startOrderSimulation(order);
+            }
+        } else {
+            showNoActiveOrders();
+        }
+    }
+    
+    // ===== 2. DISPLAY ORDER TRACKING =====
+    function displayOrderTracking(order) {
+        const trackingContent = document.getElementById('tracking-content');
+        if (!trackingContent) return;
+        
+        // Format order ID
+        const orderIdDisplay = order.orderId || `#TKA${Date.now().toString().slice(-5)}`;
+        
+        // Tracking steps
+        const steps = [
+            { id: 'confirmed', label: 'Order Confirmed', icon: '✅' },
+            { id: 'preparing', label: 'Preparing', icon: '👨‍🍳' },
+            { id: 'cooking', label: 'Cooking', icon: '🔥' },
+            { id: 'ready', label: 'Ready for Delivery', icon: '📦' },
+            { id: 'delivered', label: 'Delivered', icon: '🚚' }
+        ];
+        
+        // Calculate progress
+        const currentStepIndex = steps.findIndex(step => step.id === (order.status || 'confirmed'));
+        const progressPercent = ((currentStepIndex + 1) / steps.length) * 100;
+        
+        trackingContent.innerHTML = `
+            <div style="background: rgba(255, 255, 255, 0.95); border-radius: 15px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--text-dark); margin: 0;">Order ${orderIdDisplay}</h3>
+                    <div style="text-align: right;">
+                        <p style="color: var(--text-light); margin: 0; font-size: 0.9rem;">Placed</p>
+                        <p style="color: var(--text-dark); margin: 0; font-weight: 600;">
+                            ${order.timestamp ? new Date(order.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Just now'}
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <p style="color: var(--text-dark); margin-bottom: 0.5rem; font-weight: 600;">Delivery Address:</p>
+                    <p style="color: var(--text-light); margin: 0;">${order.address || 'Not specified'}</p>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <p style="color: var(--text-dark); margin: 0; font-weight: 600;">Order Total:</p>
+                    <p style="color: var(--primary-orange); margin: 0; font-weight: 600; font-size: 1.2rem;">Rs ${order.total || '0.00'}</p>
+                </div>
+            </div>
+
+            <div class="tracking-steps">
+                ${steps.map(step => `
+                    <div class="tracking-step">
+                        <div class="step-circle ${getStepClass(order.status || 'confirmed', step.id)}">
+                            ${step.icon}
+                        </div>
+                        <p style="color: var(--text-dark); margin: 0.5rem 0 0.25rem 0; font-weight: 600;">${step.label}</p>
+                    </div>
+                `).join('')}
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar" style="margin: 2rem auto;">
+                <div class="progress" style="width: ${progressPercent}%;"></div>
+            </div>
+
+            <!-- Status Section -->
+            <div class="tracking-status" style="text-align: center; margin-top: 2rem;">
+                <p style="color: var(--text-dark); margin-bottom: 0.5rem; font-size: 1.1rem;">
+                    ⏱ Estimated Delivery: <strong style="color: var(--primary-orange);">${getEstimatedDelivery(order.status || 'confirmed')}</strong>
+                </p>
+                <p style="color: var(--text-light); margin: 0; font-style: italic;">
+                    ${getStatusMessage(order.status || 'confirmed')}
+                </p>
+            </div>
+            
+            <!-- Order Items -->
+            <div style="background: rgba(255, 255, 255, 0.95); border-radius: 15px; padding: 1.5rem; margin-top: 2rem;">
+                <h4 style="color: var(--text-dark); margin-bottom: 1rem;">Order Items</h4>
+                ${(order.items || []).map(item => `
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #eee;">
+                        <span>${item.name} x${item.quantity || 1}</span>
+                        <span>Rs ${(item.price * (item.quantity || 1)).toFixed(2)}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+    
+    // ===== 3. ORDER SIMULATION =====
+    function startOrderSimulation(order) {
+        console.log('🔄 Starting order simulation');
+        
+        const steps = ['confirmed', 'preparing', 'cooking', 'ready', 'delivered'];
+        let currentIndex = steps.indexOf(order.status || 'confirmed');
+        
+        if (currentIndex >= steps.length - 1) return;
+        
+        const interval = setInterval(() => {
+            if (currentIndex < steps.length - 1) {
+                currentIndex++;
+                order.status = steps[currentIndex];
+                
+                // Save updated order
+                localStorage.setItem('tarkaCurrentOrder', JSON.stringify(order));
+                
+                // Update display
+                displayOrderTracking(order);
+                
+                // If delivered, stop simulation
+                if (order.status === 'delivered') {
+                    clearInterval(interval);
+                    
+                    // Keep in history but mark as delivered
+                    const orders = JSON.parse(localStorage.getItem('tarkaOrders') || '[]');
+                    const updatedOrders = orders.map(o => {
+                        if (o.orderId === order.orderId) {
+                            return { ...o, status: 'delivered' };
+                        }
+                        return o;
+                    });
+                    localStorage.setItem('tarkaOrders', JSON.stringify(updatedOrders));
+                    
+                    // Show delivered message after delay
+                    setTimeout(() => {
+                        showDeliveredMessage(order);
+                    }, 3000);
+                }
+            } else {
+                clearInterval(interval);
+            }
+        }, 5000); // Change status every 5 seconds
+    }
+    
+    // ===== 4. HELPER FUNCTIONS =====
+    function getStepClass(currentStatus, stepId) {
+        const steps = ['confirmed', 'preparing', 'cooking', 'ready', 'delivered'];
+        const currentIndex = steps.indexOf(currentStatus);
+        const stepIndex = steps.indexOf(stepId);
+        
+        if (stepIndex < currentIndex) return 'completed';
+        if (stepIndex === currentIndex) return 'active';
+        return '';
+    }
+    
+    function getEstimatedDelivery(status) {
+        const estimates = {
+            'confirmed': '25-35 minutes',
+            'preparing': '20-30 minutes',
+            'cooking': '15-25 minutes',
+            'ready': '10-15 minutes',
+            'delivered': 'Delivered!'
+        };
+        return estimates[status] || '25-35 minutes';
+    }
+    
+    function getStatusMessage(status) {
+        const messages = {
+            'confirmed': 'Your order has been confirmed and will be prepared shortly!',
+            'preparing': 'Our chefs are gathering fresh ingredients for your meal!',
+            'cooking': 'Your food is being cooked to perfection!',
+            'ready': 'Your order is ready and will be delivered soon!',
+            'delivered': 'Enjoy your meal! Thank you for choosing TARKA! 🎉'
+        };
+        return messages[status] || 'Your order is being processed with care!';
+    }
+    
+    // ===== 5. NO ACTIVE ORDERS VIEW =====
+    function showNoActiveOrders() {
+        const trackingContent = document.getElementById('tracking-content');
+        if (!trackingContent) return;
+        
+        const orders = JSON.parse(localStorage.getItem('tarkaOrders') || '[]');
+        const userEmail = localStorage.getItem('userEmail');
+        const userOrders = orders.filter(o => o.email === userEmail);
+        
+        if (userOrders.length > 0) {
+            const lastOrder = userOrders[userOrders.length - 1];
+            trackingContent.innerHTML = `
+                <div style="text-align: center; padding: 4rem 2rem; color: var(--text-dark);">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">📦</div>
+                    <h3 style="color: var(--text-dark); margin-bottom: 1rem; font-size: 1.8rem;">No Active Orders</h3>
+                    <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 1rem;">
+                        You don't have any active orders right now.
+                    </p>
+                    <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 2rem;">
+                        Your last order was placed on 
+                        ${new Date(lastOrder.timestamp || lastOrder.date).toLocaleDateString()}
+                    </p>
+                    <div style="margin-top: 2rem;">
+                        <a href="menu.html" style="display: inline-block; background: var(--primary-orange); color: white; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600;">
+                            <i class="fas fa-utensils"></i> Order Now
+                        </a>
+                    </div>
+                </div>
+            `;
+        } else {
+            trackingContent.innerHTML = `
+                <div style="text-align: center; padding: 4rem 2rem; color: var(--text-dark);">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">📦</div>
+                    <h3 style="color: var(--text-dark); margin-bottom: 1rem; font-size: 1.8rem;">No Orders Yet</h3>
+                    <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 2rem;">
+                        Place your first order from our delicious <a href="menu.html" style="color: var(--primary-orange); text-decoration: none; font-weight: 600;">menu</a>!
+                    </p>
+                    <div style="margin-top: 2rem;">
+                        <a href="menu.html" style="display: inline-block; background: var(--primary-orange); color: white; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600;">
+                            <i class="fas fa-utensils"></i> Browse Menu
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    // ===== 6. DELIVERED MESSAGE =====
+    function showDeliveredMessage(order) {
+        const trackingContent = document.getElementById('tracking-content');
+        if (!trackingContent) return;
+        
+        const orderIdDisplay = order.orderId || `#TKA${Date.now().toString().slice(-5)}`;
+        
+        trackingContent.innerHTML = `
+            <div style="text-align: center; padding: 4rem 2rem; color: var(--text-dark);">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+                <h3 style="color: var(--text-dark); margin-bottom: 1rem; font-size: 1.8rem;">Order ${orderIdDisplay} Delivered!</h3>
+                <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 1rem;">
+                    Thank you for your order! We hope you enjoyed your meal. 🍽
+                </p>
+                <div style="margin-top: 2rem;">
+                    <a href="menu.html" style="display: inline-block; background: var(--primary-orange); color: white; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600;">
+                        <i class="fas fa-utensils"></i> Order Again
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+    
+    // ===== 7. LOGIN REQUIRED =====
+    function showLoginRequired() {
+        const trackingContent = document.getElementById('tracking-content');
+        if (!trackingContent) return;
+        
+        trackingContent.innerHTML = `
+            <div style="text-align: center; padding: 4rem 2rem; color: var(--text-dark);">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">🔐</div>
+                <h3 style="color: var(--text-dark); margin-bottom: 1rem; font-size: 1.8rem;">Login Required</h3>
+                <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 2rem;">
+                    Please login to track your orders.
+                </p>
+                <div style="margin-top: 2rem;">
+                    <a href="login.html" style="display: inline-block; background: var(--primary-orange); color: white; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600;">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+    
+    // ===== 8. NAVIGATION SETUP =====
+    function setupNavigation() {
+        const menuToggle = document.getElementById('menuToggle');
+        const sideNav = document.getElementById('sideNav');
+        const navOverlay = document.getElementById('navOverlay');
+        
+        if (menuToggle && sideNav && navOverlay) {
+            menuToggle.addEventListener('click', function() {
+                sideNav.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+            });
+            
+            navOverlay.addEventListener('click', function() {
+                sideNav.classList.remove('active');
+                navOverlay.classList.remove('active');
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && sideNav.classList.contains('active')) {
+                    sideNav.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                }
+            });
+        }
+        
+        // Update cart count
+        updateCartCount();
+        
+        // Update side navigation
+        updateSideNavigation();
+    }
+    
+    function updateCartCount() {
+        const cartItems = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+        const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+        
+        const sideCartCount = document.getElementById('side-cart-count');
+        if (sideCartCount) {
+            sideCartCount.textContent = totalItems;
+        }
+    }
+    
+    function updateSideNavigation() {
+        const sideAuthButton = document.getElementById('side-auth-button');
+        const sideUserInfo = document.getElementById('side-user-info');
+        const sideUserName = document.getElementById('side-user-name');
+        const sideProfileLink = document.getElementById('side-profile-link');
+        
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const userEmail = localStorage.getItem('userEmail');
+        
+        if (isLoggedIn && userEmail) {
+            const username = userEmail.split('@')[0];
+            if (sideUserInfo) sideUserInfo.style.display = 'block';
+            if (sideUserName) sideUserName.textContent = username;
+            if (sideProfileLink) sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> ${username}`;
+            if (sideAuthButton) {
+                sideAuthButton.textContent = 'Logout';
+                sideAuthButton.href = '#';
+                sideAuthButton.onclick = function(e) {
+                    e.preventDefault();
+                    localStorage.setItem('isLoggedIn', 'false');
+                    localStorage.removeItem('tarkaCart');
+                    localStorage.removeItem('tarkaCurrentOrder');
+                    window.location.href = 'login.html';
+                };
+            }
+        } else {
+            if (sideUserInfo) sideUserInfo.style.display = 'none';
+            if (sideProfileLink) sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> Profile`;
+            if (sideAuthButton) {
+                sideAuthButton.textContent = 'Login';
+                sideAuthButton.href = 'login.html';
+                sideAuthButton.onclick = null;
+            }
+        }
+    }
+</script>

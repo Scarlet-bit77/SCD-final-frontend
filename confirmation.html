@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - TARKA</title>
+    <link rel="stylesheet" href="confirmationstyle.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="keyboardnavi.css">
+    <link rel="stylesheet" href="sidenav.css">
+     <link rel="stylesheet" href="chatbox.css">
+
+</head>
+<body>
+
+<!-- Chatbox HTML -->
+<div class="ai-chat-btn AI_Assistant" title="Chat with Tarka Bot">
+    💬
+</div>
+<div id="ai-panel-overlay"></div>
+
+<!-- SIDE AI ASSISTANT PANEL -->
+<div id="ai-side-panel">
+   <div id="ai-panel-header">
+    Tarka Bot <span id="ai-panel-close">✖</span>
+   </div>
+   <div id="ai-panel-messages">
+    <div class="ai-welcome-message">
+        <!-- <span class="icon">🍔</span> -->
+     <h3>Welcome to Tarka Bot</h3>
+     <p>I'm here to help you explore our menu, browse burgers, pizzas, naan, curry, place your order, and enjoy delicious food!</p>
+     <div class="ai-quick-actions">
+      <div class="ai-quick-action" onclick="sendQuickMessage('What is delivery time?')">
+       ⏰ What is the delivery time?
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('Show me popular dishes')">
+       🍔 Show me popular dishes
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('How can I place an order?')">
+       🛒 How can I place an order?
+      </div>
+      <div class="ai-quick-action" onclick="sendQuickMessage('Do you have vegetarian options?')">
+       🌱 Do you have vegetarian options?
+      </div>
+     </div>
+    </div>
+   </div>
+   <div id="ai-panel-input-container">
+     <input id="ai-panel-input" type="text" placeholder="Ask Tarka Bot..." aria-label="AI Assistant input"> 
+     <button id="ai-panel-send-btn" aria-label="Send message">Send</button>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Header with Menu Toggle -->
+    <div class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a href="home.html" class="logo">
+            TARKA
+        </a>
+        <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+    </div>
+
+    <!-- Side Navigation -->
+    <div class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <a href="home.html" class="nav-logo">
+                <img src="logo (2).png" alt="Tarka Logo" class="nav-logo-img">
+                <span>TARKA</span>
+            </a>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+            <li>
+                <a href="cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Cart <span class="cart-count" id="side-cart-count">0</span>
+                </a>
+            </li>
+            <li><a href="tracking.html"><i class="fa-solid fa-location-dot"></i> Track Order</a></li>
+            <li><a href="userp.html" id="side-profile-link"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="orders.html"><i class="fa-solid fa-receipt"></i> My Orders</a></li>
+            <li><a href="deals.html"><i class="fa-solid fa-tags"></i> Deals</a></li>
+            <li><a href="favourites.html"><i class="fas fa-heart"></i>Favorites</a></li> 
+            <li><a href="contactus.html"><i class="fas fa-envelope"></i>Contact Us </a></li>
+             <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        </ul>
+        
+        <div class="nav-footer">
+            <div class="user-info" id="side-user-info" style="display: none;">
+                <i class="fas fa-user-circle"></i>
+                <span id="side-user-name">Loading...</span>
+            </div>
+            <a href="login.html" class="auth-btn" id="side-auth-button">Login</a>
+        </div>
+    </div>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Order Confirmation Page Content -->
+    <div class="confirmation-container">
+        <!-- Success Card -->
+        <div class="confirmation-card">
+            <!-- Animated Checkmark -->
+            <div class="success-animation">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+
+            <!-- Confirmation Message -->
+            <div class="confirmation-header">
+                <h2>Order Confirmed!</h2>
+                <p class="confirmation-subtitle">Thank you for your order. Your delicious food is being prepared.</p>
+            </div>
+
+            <!-- Order Details Card -->
+            <div class="order-details-card">
+                <h3>Order Details</h3>
+                <div class="order-info">
+                    <div class="info-item">
+                        <span class="info-label">Order ID:</span>
+                        <span class="info-value" id="order-id">#TKA0001</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Estimated Delivery:</span>
+                        <span class="info-value" id="delivery-time">30-40 minutes</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Total Amount:</span>
+                        <span class="info-value" id="order-total">Rs0.00</span>
+                    </div>
+                </div>
+                <!-- Add this line in your order summary where you show subtotal, delivery, tax, etc. -->
+                <div id="confirmation-discount" style="display: none;"></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="tracking.html" class="btn btn-primary btn-large">
+                    <span class="btn-icon">📍</span>
+                    Track Order
+                </a>
+                <a href="home.html" class="btn btn-secondary btn-large">
+                    <span class="btn-icon">🛒</span>
+                    Continue Shopping
+                </a>
+            </div>
+
+            <!-- Quick Support -->
+            <div class="support-section">
+                <p>Need help? Contact Support</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TARKA</h3>
+                    <p>Delivering happiness, one meal at a time. Experience the finest cuisine with our premium food delivery service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="menu.html" style="color: var(--text-light); text-decoration: none;">Menu</a></p>
+                    <p><a href="tracking.html" style="color: var(--text-light); text-decoration: none;">Track Order</a></p>
+                    <p><a href="home.html" style="color: var(--text-light); text-decoration: none;">Home</a></p>
+                    <p><a href="about.html" style="color: var(--text-light); text-decoration: none;">About Us</a></p>
+                    <p><a href="deals.html" style="color: var(--text-light); text-decoration: none;">Deals</a></p>
+                    <p><a href="contactus.html" style="color: var(--text-light); text-decoration: none;">Contact Us</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📞 +92 345 1234567</p>
+                    <p>📧 hello@tarka.com</p>
+                    <p>📍 123 Food Street, City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TARKA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+     <script src="chatbox.js"></script>
+    <!-- <button id="contrastToggle" class="contrast-btn">☀ Contrast</button> -->
+
+    <!-- Navigation Bar Script -->
+    <script>
+        // ===== SIDE NAVIGATION FUNCTIONALITY =====
+        const menuToggle = document.getElementById('menuToggle');
+        const sideNav = document.getElementById('sideNav');
+        const navOverlay = document.getElementById('navOverlay');
+
+        // Toggle side navigation
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function() {
+                sideNav.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+            });
+        }
+
+        // Close side navigation when clicking overlay
+        if (navOverlay) {
+            navOverlay.addEventListener('click', function() {
+                sideNav.classList.remove('active');
+                navOverlay.classList.remove('active');
+            });
+        }
+
+        // Close side navigation when clicking ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sideNav.classList.contains('active')) {
+                sideNav.classList.remove('active');
+                navOverlay.classList.remove('active');
+            }
+        });
+
+        // ===== BACKEND-ENABLED AUTH FUNCTIONS =====
+        const API_BASE_URL = 'http://localhost:3000';
+
+        function checkUserLoggedIn() {
+            const userId = localStorage.getItem('userId');
+            const userEmail = localStorage.getItem('userEmail');
+            return !!(userId && userEmail);
+        }
+
+        async function setUserLoggedIn(status) {
+            if (!status) {
+                localStorage.removeItem('userId');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userData');
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('loginCount');
+                
+                try {
+                    await fetch(`${API_BASE_URL}/logout`, { method: 'POST' });
+                } catch (error) {
+                    console.log('Backend logout optional');
+                }
+            } else {
+                localStorage.setItem('isLoggedIn', 'true');
+            }
+        }
+
+        async function updateSideNavigation() {
+            const sideAuthButton = document.getElementById('side-auth-button');
+            const sideUserInfo = document.getElementById('side-user-info');
+            const sideUserName = document.getElementById('side-user-name');
+            const sideProfileLink = document.getElementById('side-profile-link');
+            
+            if (checkUserLoggedIn()) {
+                const userEmail = localStorage.getItem('userEmail') || '';
+                const userName = userEmail.split('@')[0] || 'User';
+                
+                if (sideUserInfo) sideUserInfo.style.display = 'block';
+                if (sideUserName) sideUserName.textContent = userName;
+                if (sideProfileLink) sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> ${userName}`;
+                if (sideAuthButton) {
+                    sideAuthButton.textContent = 'Logout';
+                    sideAuthButton.href = '#';
+                    sideAuthButton.onclick = async function(e) {
+                        e.preventDefault();
+                        await setUserLoggedIn(false);
+                        localStorage.removeItem('tarkaCart');
+                        localStorage.removeItem('tarkaCurrentOrder');
+                        window.location.href = 'login.html';
+                    };
+                }
+            } else {
+                if (sideUserInfo) sideUserInfo.style.display = 'none';
+                if (sideProfileLink) sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> Profile`;
+                if (sideAuthButton) {
+                    sideAuthButton.textContent = 'Login';
+                    sideAuthButton.href = 'login.html';
+                    sideAuthButton.onclick = null;
+                }
+            }
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const cartItems = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+            const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+            
+            const sideCartCount = document.getElementById('side-cart-count');
+            if (sideCartCount) {
+                sideCartCount.textContent = totalItems;
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSideNavigation();
+            updateCartCount();
+        });
+    </script>
+
+</body>
+</html>

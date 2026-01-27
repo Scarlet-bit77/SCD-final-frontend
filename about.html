@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — TARKA</title>
+
+  <!-- Page styles -->
+   <link rel="stylesheet" href="about.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="keyboardnavi.css">
+</head>
+<body>
+
+  <!-- Background Image -->
+  <div class="bg-animation"></div>
+
+ <!-- NAVBAR -->
+<!-- <nav class="navbar">
+  <div class="container">
+    <div class="nav-content">
+      <a href="home.html" class="logo">
+        <img src="logo (2).png" alt="Tarka logo" class="logo-img"> TARKA
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+          <li><a href="deals.html"><i class="fa-solid fa-tags"></i> Deals</a></li>
+        <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Cart (<span id="cart-count">0</span>)</a></li>
+        <li><a href="tracking.html"><i class="fa-solid fa-location-dot"></i> Track Order</a></li>
+        <li><a href="contactus.html"><i class="fas fa-envelope"></i>Contact Us </a></li>
+        <li id="auth-nav-item">
+          <a href="login.html" class="btn btn-primary" id="auth-button">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+<script>
+  function checkUserLoggedIn() {
+    return localStorage.getItem('tarkaLoggedIn') === 'true';
+  }
+
+  function setUserLoggedIn(status) {
+    localStorage.setItem('tarkaLoggedIn', status ? 'true' : 'false');
+  }
+
+  function updateNavigation() {
+    const authButton = document.getElementById('auth-button');
+    if (!authButton) return;
+
+    if (checkUserLoggedIn()) {
+      authButton.textContent = 'Logout';
+      authButton.href = '#';
+      authButton.onclick = function(e) {
+        e.preventDefault();
+        setUserLoggedIn(false);
+        localStorage.removeItem('tarkaCart');
+        localStorage.removeItem('tarkaCurrentOrder');
+        window.location.href = 'welcome.html';
+      };
+    } else {
+      authButton.textContent = 'Login';
+      authButton.href = 'login.html';
+      authButton.onclick = null;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', updateNavigation);
+</script>
+
+  <!-- Main Glass Wrapper (Unified Semi-Transparent Panel) -->
+  <div class="main-glass-wrapper">
+
+    <!-- HERO -->
+    <header class="hero hero-about">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <h1>Our Story & Taste</h1>
+          <p>From a small kitchen to thousands of happy homes — TARKA delivers fresh, authentic flavors quickly and lovingly.</p>
+          <div class="hero-buttons">
+            <a href="menu.html" class="btn btn-secondary">Explore Menu</a>
+            <a href="deals.html" class="btn btn-primary">Specials</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <img src="about-hero-food.png" alt="" class="hero-illustration">
+        </div>
+      </div>
+    </header>
+
+    <!-- ABOUT CONTENT -->
+    <main class="container about-content">
+
+      <!-- OUR STORY & MISSION -->
+      <section class="card-section">
+        <div class="card glass story">
+          <h2>Our Story</h2>
+          <p>
+            TARKA was founded with one simple idea: food should be fresh, honest and shared. What started as a home kitchen creating meals for neighbours grew into a passionate team of cooks, riders and food lovers, committed to bringing the taste you love to your doorstep.
+          </p>
+        </div>
+
+        <div class="card glass mission">
+          <h2>Mission & Values</h2>
+          <ul class="mission-list">
+            <li><strong>Freshness first</strong> — we source daily and cook to order.</li>
+            <li><strong>Speed with care</strong> — fast delivery without compromising quality.</li>
+            <li><strong>Local love</strong> — supporting local suppliers and recipes.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- WHY CHOOSE US -->
+      <section class="why-choose">
+        <h2 class="section-heading">Why Choose TARKA</h2>
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-icon">🚚</div>
+            <h3>Fast Delivery</h3>
+            <p>Optimised routes and tracked riders keep your food hot and on time.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">🍃</div>
+            <h3>Fresh Ingredients</h3>
+            <p>We use fresh, local produce and traditional spice blends for authentic taste.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">⭐</div>
+            <h3>Top Quality</h3>
+            <p>Strict kitchen standards and frequent checks ensure consistency.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">🤝</div>
+            <h3>Community</h3>
+            <p>We partner with local kitchens and give back through food drives.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIMELINE -->
+      <section class="timeline-section">
+        <h2 class="section-heading">How TARKA Started</h2>
+        <ol class="timeline">
+          <li>
+            <time>2018</time>
+            <div class="timeline-content"><strong>Humble Kitchen</strong> — Started as a home-cooked meal service in the neighbourhood.</div>
+          </li>
+          <li>
+            <time>2019</time>
+            <div class="timeline-content"><strong>First Shared Kitchen</strong> — We expanded to a shared kitchen and hired our first riders.</div>
+          </li>
+          <li>
+            <time>2021</time>
+            <div class="timeline-content"><strong>City-wide Delivery</strong> — Launched full-scale delivery with real-time tracking.</div>
+          </li>
+          <li>
+            <time>2024</time>
+            <div class="timeline-content"><strong>Trusted by Thousands</strong> — Local favorite for authentic meals and quick service.</div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- STATS -->
+      <section class="stats-section">
+        <div class="stats-grid">
+          <div class="stat">
+            <h3 class="stat-number" data-target="120000">120k+</h3>
+            <p>Meals Delivered</p>
+          </div>
+          <div class="stat">
+            <h3 class="stat-number" data-target="95">95%</h3>
+            <p>On-time Rate</p>
+          </div>
+          <div class="stat">
+            <h3 class="stat-number" data-target="500">500+</h3>
+            <p>Local Partners</p>
+          </div>
+          <div class="stat">
+            <h3 class="stat-number" data-target="4.8">4.8</h3>
+            <p>Average Rating</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CALL TO ACTION -->
+      <section class="cta-section">
+        <div class="cta card glass">
+          <h2>Hungry? Let’s deliver something delicious.</h2>
+          <div class="cta-buttons">
+            <a href="menu.html" class="btn btn-primary">Order Now</a>
+            <a href="contactus.html" class="btn btn-secondary">Contact Us</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div> <!-- end main-glass-wrapper -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>TARKA</h3>
+          <p>Delivering happiness, one meal at a time. Experience the finest cuisine with our premium food delivery service.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <p><a href="menu.html" style="color: var(--text-light); text-decoration: none;">Menu</a></p>
+          <p><a href="tracking.html" style="color: var(--text-light); text-decoration: none;">Track Order</a></p>
+          <p><a href="home.html" style="color: var(--text-light); text-decoration: none;">Home</a></p>
+          <p><a href="about.html" style="color: var(--text-light); text-decoration: none;">About Us</a></p>
+          <p><a href="deals.html"style="color: var(--text-light); text-decoration: none;">Deals</a></p>
+         <p><a href="contactus.html" style="color: var(--text-light); text-decoration: none;">Contact Us</a></p>
+                    
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <p>📞 +92 345 1234567</p>
+          <p>📧 support@tarka.com</p>
+           <p><i class="fas fa-map-marker-alt"style="color:red";></i> 2000 Tipu Sultan Rd,I-8 Markaz, Islamabad</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 TARKA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script>
+    // simple stat counters
+    document.addEventListener('DOMContentLoaded', () => {
+      const counters = document.querySelectorAll('.stat-number');
+      const speed = 2000;
+      const inView = el => {
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom >= 0;
+      };
+      const runCounters = () => {
+        counters.forEach(counter => {
+          if (counter.dataset.animated) return;
+          if (!inView(counter)) return;
+          const target = parseFloat(counter.getAttribute('data-target'));
+          if (isNaN(target)) return;
+          let start = 0;
+          const step = () => {
+            start += target / (speed / 16);
+            if (start >= target) {
+              counter.textContent = counter.dataset.target;
+              counter.dataset.animated = 'true';
+              return;
+            }
+            counter.textContent = String(counter.dataset.target).includes('.') ? (Math.round(start*10)/10).toFixed(1) : Math.round(start).toLocaleString();
+            requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        });
+      };
+      window.addEventListener('scroll', runCounters);
+      runCounters();
+    });
+  </script>
+ <iframe
+        src="chatbox.html"
+        style="
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 360px;
+            height: 500px;
+            border: none;
+            z-index: 9999;">
+    </iframe>
+</body>
+</html>

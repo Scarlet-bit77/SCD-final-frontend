@@ -1,0 +1,457 @@
+/* ===== FULL tracking.css ===== */
+
+/* ===== GLOBAL STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* CSS Variables for Colors */
+:root {
+    --primary-orange: #F55B23;
+    --light-orange: #FF7A47;
+    --dark-orange: #E04A1A;
+    --primary-yellow: #FFD700;
+    --light-yellow: #FFF3CD;
+    --dark-yellow: #F4C430;
+    --white: #FFFFFF;
+    --light-gray: #F8F9FA;
+    --text-dark: #2C3E50;
+    --text-light: #6C757D;
+}
+
+/* Base Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #fff;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    overflow-x: hidden;
+}
+
+/* ===== VIDEO BACKGROUND ===== */
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ===== ANIMATED BACKGROUND ELEMENTS ===== */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.floating-shape {
+    position: absolute;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-shape:nth-child(1) {
+    top: 10%;
+    left: 10%;
+    width: 80px;
+    height: 80px;
+    background: var(--primary-orange);
+    border-radius: 50%;
+    animation-delay: 0s;
+}
+
+.floating-shape:nth-child(2) {
+    top: 20%;
+    right: 10%;
+    width: 60px;
+    height: 60px;
+    background: var(--primary-yellow);
+    border-radius: 50%;
+    animation-delay: 2s;
+}
+
+.floating-shape:nth-child(3) {
+    bottom: 20%;
+    left: 20%;
+    width: 100px;
+    height: 100px;
+    background: var(--light-orange);
+    border-radius: 50%;
+    animation-delay: 4s;
+}
+
+.floating-shape:nth-child(4) {
+    bottom: 30%;
+    right: 20%;
+    width: 70px;
+    height: 70px;
+    background: var(--dark-yellow);
+    border-radius: 50%;
+    animation-delay: 1s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(120deg); }
+    66% { transform: translateY(20px) rotate(240deg); }
+}
+
+/* ===== LAYOUT COMPONENTS ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== BUTTON STYLES ===== */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-orange), var(--light-orange));
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--light-orange), #ffd699);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(245, 91, 35, 0.4);
+    color: var(--white);
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--primary-orange);
+    border: 2px solid var(--primary-orange);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-orange);
+    color: var(--white);
+}
+
+/* ===== PAGE CONTENT STYLES ===== */
+.page-content {
+    position: relative;
+    z-index: 2;
+    margin-top: 80px;
+    min-height: calc(100vh - 80px);
+    display: none;
+}
+
+.page-content.active {
+    display: block;
+}
+
+/* ===== HERO SECTION WITH GLASS EFFECT ===== */
+.hero {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    padding: 40px 20px;
+
+    /* ✨ Glassmorphism effect */
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    backdrop-filter: blur(15px) saturate(160%);
+    -webkit-backdrop-filter: blur(15px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37),
+                inset 0 0 60px rgba(255, 255, 255, 0.05);
+}
+
+.hero h1, 
+.hero p {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+.hero-buttons .btn {
+    margin: 0 10px;
+}
+
+
+/* ===== ORDER TRACKING STYLES ===== */
+.tracking-container {
+    padding: 3rem 0;
+    position: relative;
+    z-index: 4;
+}
+
+.tracking-steps {
+    display: flex;
+    justify-content: space-between;
+    margin: 3rem 0;
+    position: relative;
+}
+
+.tracking-step {
+    text-align: center;
+    flex: 1;
+    position: relative;
+    padding: 0 8px;
+}
+
+.step-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.step-circle.active {
+    background: var(--primary-orange);
+    color: var(--white);
+    animation: pulse 2s infinite;
+}
+
+.step-circle.completed {
+    background: var(--primary-yellow);
+    color: var(--text-dark);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+/* Enhanced Tracking Styles */
+#tracking-content {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.tracking-container h2.section-title {
+    color: var(--primary-orange) !important;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Progress bar animation */
+.progress {
+    background: linear-gradient(90deg, var(--primary-orange), var(--primary-yellow));
+    transition: width 0.5s ease-in-out;
+    border-radius: 10px;
+}
+
+/* Step circle enhancements */
+.step-circle {
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.step-circle.active {
+    border-color: var(--primary-orange);
+    animation: pulse 2s infinite;
+}
+
+.step-circle.completed {
+    border-color: var(--primary-yellow);
+}
+
+
+
+/* ===== PROGRESS BAR ===== */
+.progress-bar {
+    width: 80%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    margin: 2rem auto;
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.progress {
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff7a00, #ffd000);
+    animation: pulse-glow 2s infinite alternate;
+    border-radius: 10px;
+}
+
+@keyframes pulse-glow {
+    0% { filter: brightness(1); }
+    100% { filter: brightness(1.4); }
+}
+
+/* ===== TRACK ORDER TEXT ===== */
+.tracking-status {
+    text-align: center;
+    color: var(--dark-orange);
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    animation: fadeInUp 1.2s ease;
+}
+
+.step-circle {
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.12);
+    transition: all 0.4s ease;
+}
+
+.step-circle.active {
+    box-shadow: 0 0 20px rgba(255, 200, 50, 0.8);
+    transform: scale(1.15);
+}
+
+.step-circle:hover {
+    transform: scale(1.2);
+    filter: brightness(1.05);
+    cursor: pointer;
+}
+
+.tracking-step p {
+    color: var(--white);
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+ 
+
+   /* ===== FOOTER STYLES ===== */
+.footer {
+    background: var(--text-dark);
+    color: var(--white);
+    padding: 3rem 0 1rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    color: var(--primary-orange);
+    margin-bottom: 1rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #495057;
+    color: var(--text-light);
+}
+/* ===== NOTIFICATION ANIMATIONS ===== */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-20px); }
+    60% { transform: translateY(-10px); }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .tracking-steps {
+        gap: 8px;
+        margin: 2rem 0;
+    }
+
+    .step-circle {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+    }
+}
+
+/* ===== FIX TEXT COLOR FOR TRACK ORDER PAGE ===== */
+.section-title {
+    color: #ec3e09 !important;
+    text-shadow: none !important;
+}
+
+#tracking-content p,
+#tracking-content strong,
+#tracking-content span {
+    color: #222 !important;
+}
+
+#tracking-content {
+    background: rgba(245, 245, 220, 0.9);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.tracking-container h2,
+.tracking-container h3,
+.tracking-container p,
+.tracking-container strong,
+.tracking-container span {
+    color: #222 !important;
+    text-shadow: none !important;
+}
+
+.tracking-container .section-title {
+    color: #f55b23 !important;
+    text-shadow: none;
+}

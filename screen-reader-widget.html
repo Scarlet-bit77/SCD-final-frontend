@@ -1,0 +1,229 @@
+<!-- Accessibility Widget -->
+<div class="accessibility-widget" aria-label="Accessibility Options">
+    <button class="accessibility-toggle" id="accessibilityToggle" aria-label="Open accessibility menu" aria-expanded="false">
+        ♿
+    </button>
+    
+    <div class="accessibility-panel" id="accessibilityPanel" aria-hidden="true">
+        <h3 class="sr-only">Accessibility Options</h3>
+        
+        <div class="accessibility-option">
+            <input type="checkbox" id="highContrast" aria-label="Toggle high contrast mode">
+            <label for="highContrast">High Contrast</label>
+        </div>
+        
+        <div class="accessibility-option">
+            <input type="checkbox" id="largeText" aria-label="Toggle large text mode">
+            <label for="largeText">Large Text</label>
+        </div>
+        
+        <div class="accessibility-option">
+            <button id="speakPage" aria-label="Read page content aloud">
+                🔊 Read Aloud
+            </button>
+        </div>
+        
+        <div class="accessibility-option">
+            <button id="disableAnimations" aria-label="Disable animations">
+                ⏸️ Pause Animations
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Skip to Main Content Link (should be first interactive element) -->
+<a href="#main-content" class="skip-to-content">
+    Skip to Main Content
+</a>
+
+<!-- ARIA Live Region for announcements -->
+<div class="aria-live" aria-live="polite" aria-atomic="true" id="ariaLiveRegion"></div>
+
+<!-- JavaScript for accessibility features -->
+<script>
+    // Accessibility Widget Toggle
+    const accessibilityToggle = document.getElementById('accessibilityToggle');
+    const accessibilityPanel = document.getElementById('accessibilityPanel');
+    const highContrastToggle = document.getElementById('highContrast');
+    const largeTextToggle = document.getElementById('largeText');
+    const speakPageBtn = document.getElementById('speakPage');
+    const disableAnimationsBtn = document.getElementById('disableAnimations');
+    const ariaLiveRegion = document.getElementById('ariaLiveRegion');
+    
+    if (accessibilityToggle && accessibilityPanel) {
+        accessibilityToggle.addEventListener('click', function() {
+            const isExpanded = accessibilityToggle.getAttribute('aria-expanded') === 'true';
+            accessibilityToggle.setAttribute('aria-expanded', !isExpanded);
+            accessibilityPanel.classList.toggle('show');
+            accessibilityPanel.setAttribute('aria-hidden', isExpanded);
+            
+            // Announce to screen readers
+            announceToScreenReader(isExpanded ? 'Accessibility menu closed' : 'Accessibility menu opened');
+        });
+        
+        // Close panel when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!accessibilityToggle.contains(event.target) && !accessibilityPanel.contains(event.target)) {
+                accessibilityToggle.setAttribute('aria-expanded', 'false');
+                accessibilityPanel.classList.remove('show');
+                accessibilityPanel.setAttribute('aria-hidden', 'true');
+            }
+        });
+    }
+    
+    // High Contrast Mode
+    if (highContrastToggle) {
+        // Check saved preference
+        const savedHighContrast = localStorage.getItem('highContrast') === 'true';
+        highContrastToggle.checked = savedHighContrast;
+        
+        if (savedHighContrast) {
+            document.body.classList.add('high-contrast');
+        }
+        
+        highContrastToggle.addEventListener('change', function() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', this.checked);
+            announceToScreenReader(this.checked ? 'High contrast mode enabled' : 'High contrast mode disabled');
+        });
+    }
+    
+    // Large Text Mode
+    if (largeTextToggle) {
+        const savedLargeText = localStorage.getItem('largeText') === 'true';
+        largeTextToggle.checked = savedLargeText;
+        
+        if (savedLargeText) {
+            document.body.classList.add('large-text');
+        }
+        
+        largeTextToggle.addEventListener('change', function() {
+            document.body.classList.toggle('large-text');
+            localStorage.setItem('largeText', this.checked);
+            announceToScreenReader(this.checked ? 'Large text mode enabled' : 'Large text mode disabled');
+        });
+    }
+    
+    // Text-to-Speech
+    if (speakPageBtn) {
+        let isSpeaking = false;
+        let speech = null;
+        
+        if ('speechSynthesis' in window) {
+            speech = window.speechSynthesis;
+            
+            speakPageBtn.addEventListener('click', function() {
+                if (isSpeaking) {
+                    speech.cancel();
+                    isSpeaking = false;
+                    this.textContent = '🔊 Read Aloud';
+                    announceToScreenReader('Reading stopped');
+                } else {
+                    const pageTitle = document.title;
+                    const mainContent = document.querySelector('main') || document.body;
+                    const textToRead = mainContent.textContent || mainContent.innerText;
+                    
+                    const utterance = new SpeechSynthesisUtterance();
+                    utterance.text = `Page: ${pageTitle}. ${textToRead.substring(0, 1000)}...`;
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1;
+                    utterance.volume = 1;
+                    
+                    utterance.onstart = function() {
+                        isSpeaking = true;
+                        speakPageBtn.textContent = '⏸️ Stop Reading';
+                        announceToScreenReader('Reading page content');
+                    };
+                    
+                    utterance.onend = function() {
+                        isSpeaking = false;
+                        speakPageBtn.textContent = '🔊 Read Aloud';
+                    };
+                    
+                    speech.speak(utterance);
+                }
+            });
+        } else {
+            speakPageBtn.disabled = true;
+            speakPageBtn.textContent = '🔇 Not Supported';
+            speakPageBtn.title = 'Text-to-speech not supported in your browser';
+        }
+    }
+    
+    // Disable Animations
+    if (disableAnimationsBtn) {
+        const savedNoAnimations = localStorage.getItem('noAnimations') === 'true';
+        
+        if (savedNoAnimations) {
+            document.body.classList.add('no-animations');
+            disableAnimationsBtn.textContent = '▶️ Enable Animations';
+        }
+        
+        disableAnimationsBtn.addEventListener('click', function() {
+            const noAnimations = document.body.classList.toggle('no-animations');
+            localStorage.setItem('noAnimations', noAnimations);
+            this.textContent = noAnimations ? '▶️ Enable Animations' : '⏸️ Pause Animations';
+            announceToScreenReader(noAnimations ? 'Animations disabled' : 'Animations enabled');
+        });
+    }
+    
+    // Function to announce to screen readers
+    function announceToScreenReader(message) {
+        if (ariaLiveRegion) {
+            ariaLiveRegion.textContent = message;
+            // Clear after 3 seconds
+            setTimeout(() => {
+                ariaLiveRegion.textContent = '';
+            }, 3000);
+        }
+    }
+    
+    // Initialize page with ARIA attributes
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add role="main" to main content if not present
+        const mainContent = document.querySelector('main');
+        if (mainContent && !mainContent.getAttribute('role')) {
+            mainContent.setAttribute('role', 'main');
+            mainContent.id = 'main-content';
+        }
+        
+        // Add ARIA labels to images without alt text
+        document.querySelectorAll('img:not([alt])').forEach(img => {
+            img.setAttribute('alt', 'Decorative image');
+        });
+        
+        // Add ARIA labels to icons
+        document.querySelectorAll('.fa, .fas, .far, .fal, .fab').forEach(icon => {
+            if (!icon.getAttribute('aria-label')) {
+                const parentText = icon.parentElement.textContent.replace(icon.textContent, '').trim();
+                if (parentText) {
+                    icon.setAttribute('aria-label', parentText);
+                } else {
+                    icon.setAttribute('aria-hidden', 'true');
+                }
+            }
+        });
+        
+        // Announce page load to screen readers
+        setTimeout(() => {
+            announceToScreenReader(`Loaded page: ${document.title}`);
+        }, 1000);
+    });
+    
+    // Add no-animations class CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        .no-animations *,
+        .no-animations *::before,
+        .no-animations *::after {
+            animation: none !important;
+            transition: none !important;
+        }
+        
+        .no-animations .fire-bg,
+        .no-animations .bg-animation {
+            display: none !important;
+        }
+    `;
+    document.head.appendChild(style);
+</script>

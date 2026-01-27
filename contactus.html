@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TARKA</title>
+    <link rel="stylesheet" href="contactus.css">
+    <link rel="stylesheet" href="sidenav.css">
+    <link rel="stylesheet" href="keyboardnavi.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="contrast.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Header with Menu Toggle (SAME AS LOGIN.HTML) -->
+    <div class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a href="home.html" class="logo">
+            TARKA
+        </a>
+        <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+    </div>
+
+    <!-- Side Navigation (SAME AS LOGIN.HTML) -->
+    <div class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <a href="home.html" class="nav-logo">
+                <img src="logo (2).png" alt="Tarka Logo" class="nav-logo-img">
+                <span>TARKA</span>
+            </a>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+            <li>
+                <a href="cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Cart <span class="cart-count" id="side-cart-count">0</span>
+                </a>
+            </li>
+            <li><a href="tracking.html"><i class="fa-solid fa-location-dot"></i> Track Order</a></li>
+            <li><a href="userp.html" id="side-profile-link"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="orders.html"><i class="fa-solid fa-receipt"></i> My Orders</a></li>
+            <li><a href="deals.html"><i class="fa-solid fa-tags"></i> Deals</a></li>
+            <li><a href="favourites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+            <li><a href="contactus.html" class="active"><i class="fas fa-envelope"></i> Contact Us</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        </ul>
+        
+        <div class="nav-footer">
+            <div class="user-info" id="side-user-info" style="display: none;">
+                <i class="fas fa-user-circle"></i>
+                <span id="side-user-name">Loading...</span>
+            </div>
+            <a href="login.html" class="auth-btn" id="side-auth-button">Login</a>
+        </div>
+    </div>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Contact Section -->
+    <div class="page-content active" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); min-height: 100vh; padding-top: 2rem;">
+        <section class="contact-section">
+            <div class="main-glass-wrapper">
+                <div class="container">
+                    <h1 class="section-title">Get In Touch</h1>
+                    <p class="section-subtitle">We'd love to hear from you! Send us a message and we'll respond as soon as possible.</p>
+                    <div class="contact-container">
+                        <!-- Contact Information -->
+                        <div class="contact-info">
+                            <!-- First Row: Visit Us and Call Us -->
+                            <div class="info-cards-row">
+                                <div class="info-card">
+                                    <div class="info-card-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <h3>Address</h3>
+                                    <p>2000 Tipu Sultan Rd,<br> I-8 Markaz, Islamabad</p>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-card-icon">
+                                        <i class="fas fa-phone-alt" style="transform: rotate(90deg);"></i>
+                                    </div>
+                                    <h3>Call Us</h3>
+                                    <p>
+                                        <a href="tel:+923451234567"><i class="fa-brands fa-whatsapp" style="color: #25D366; margin-right: 5px;"></i>+92 345 1234567</a><br>
+                                        <a href="tel:+0515527934"><i class="fas fa-phone" style="margin-right: 5px;"></i>051-5527934</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Second Row: Email and Opening Hours -->
+                            <div class="info-cards-row">
+                                <div class="info-card">
+                                    <div class="info-card-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <h3>Email</h3>
+                                    <p><a href="mailto:support@tarka.com">support@tarka.com</a></p>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-card-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <h3>Opening Hours</h3>
+                                    <p>Mon - Sun: 11:00 AM - 11:00 PM<br><strong style="color: var(--primary-orange);">Open 7 Days</strong></p>
+                                </div>
+                            </div>
+                            <!-- Map Section -->
+                            <div class="map-section">
+                                <h2>Find Us on Map</h2>
+                                <div class="map-container">
+                                    <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Desi+Tarka+Restaurant+I-8+Markaz+Islamabad&zoom=16" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Contact Form -->
+                        <div class="contact-form-container">
+                            <h2>Send Us a Message</h2>
+                            <div id="success-message" class="success-message">
+                                ✅ Thank you! Your message has been sent successfully. We'll get back to you soon!
+                            </div>
+                            <form id="contact-form">
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" name="name" required minlength="2" maxlength="50" placeholder="Enter your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" required pattern="(\+92)?[0-9]{11}" placeholder="+92 300 1234567" title="Please enter exactly 11 digits">
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject">Subject</label>
+                                    <select id="subject" name="subject" required>
+                                        <option value="">Select a subject</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="order">Order Issue</option>
+                                        <option value="feedback">Feedback</option>
+                                        <option value="complaint">Complaint</option>
+                                        <option value="catering">Catering Services</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message" required placeholder="Tell us how we can help you..."></textarea>
+                                </div>
+                                <button type="submit" class="submit-btn">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TARKA</h3>
+                    <p>Delivering happiness, one meal at a time. Experience the finest cuisine with our premium food delivery service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="menu.html" style="color: var(--text-light); text-decoration: none;">Menu</a></p>
+                    <p><a href="tracking.html" style="color: var(--text-light); text-decoration: none;">Track Order</a></p>
+                    <p><a href="home.html" style="color: var(--text-light); text-decoration: none;">Home</a></p>
+                    <p><a href="about.html" style="color: var(--text-light); text-decoration: none;">About Us</a></p>
+                    <p><a href="deals.html" style="color: var(--text-light); text-decoration: none;">Deals</a></p>
+                    <p><a href="contactus.html" style="color: var(--text-light); text-decoration: none;">Contact Us</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📞 +92 345 1234567</p>
+                    <p>📧 support@tarka.com</p>
+                    <p><i class="fas fa-map-marker-alt" style="color:red;"></i> 2000 Tipu Sultan Rd, I-8 Markaz, Islamabad</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TARKA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <button class="contrast-btn" id="contrastBtn" aria-label="Toggle High Contrast"> <i class="fas fa-adjust"></i> </button>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+    <!-- SIDE NAVIGATION SCRIPT (SAME AS LOGIN.HTML) -->
+     <script>
+/* ===== SIDE NAVIGATION FUNCTIONALITY ===== */
+const menuToggle = document.getElementById('menuToggle');
+const sideNav = document.getElementById('sideNav');
+const navOverlay = document.getElementById('navOverlay');
+
+if (menuToggle && sideNav && navOverlay) {
+    menuToggle.addEventListener('click', function() {
+        sideNav.classList.toggle('active');
+        navOverlay.classList.toggle('active');
+    });
+
+    navOverlay.addEventListener('click', function() {
+        sideNav.classList.remove('active');
+        navOverlay.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sideNav.classList.contains('active')) {
+            sideNav.classList.remove('active');
+            navOverlay.classList.remove('active');
+        }
+    });
+}
+
+/* ===== BACKEND-ENABLED AUTH FUNCTIONS ===== */
+const API_BASE_URL = 'http://localhost:3000';
+
+function checkUserLoggedIn() {
+    const userId = localStorage.getItem('userId');
+    const userEmail = localStorage.getItem('userEmail');
+    return !!(userId && userEmail);
+}
+
+async function setUserLoggedIn(status) {
+    if (!status) {
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userData');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('loginCount');
+
+        try {
+            await fetch(`${API_BASE_URL}/logout`, { method: 'POST' });
+        } catch (error) {
+            console.log('Backend logout optional');
+        }
+    } else {
+        localStorage.setItem('isLoggedIn', 'true');
+    }
+}
+
+async function updateSideNavigation() {
+    const sideAuthButton = document.getElementById('side-auth-button');
+    const sideUserInfo = document.getElementById('side-user-info');
+    const sideUserName = document.getElementById('side-user-name');
+    const sideProfileLink = document.getElementById('side-profile-link');
+
+    if (checkUserLoggedIn()) {
+        const userEmail = localStorage.getItem('userEmail') || '';
+        const userName = userEmail.split('@')[0] || 'User';
+
+        sideUserInfo.style.display = 'block';
+        sideUserName.textContent = userName;
+        sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> ${userName}`;
+        sideAuthButton.textContent = 'Logout';
+        sideAuthButton.href = '#';
+        sideAuthButton.onclick = async function(e) {
+            e.preventDefault();
+            await setUserLoggedIn(false);
+            localStorage.removeItem('tarkaCart');
+            localStorage.removeItem('tarkaCurrentOrder');
+            window.location.href = 'login.html';
+        };
+
+        try {
+            const userId = localStorage.getItem('userId');
+            if (userId) {
+                const response = await fetch(`${API_BASE_URL}/user/${userId}`);
+                if (response.ok) {
+                    const userData = await response.json();
+                    if (userData.success) {
+                        localStorage.setItem('userData', JSON.stringify(userData.user));
+                    }
+                }
+            }
+        } catch (error) {
+            console.log('Optional: Could not fetch user details');
+        }
+    } else {
+        sideUserInfo.style.display = 'none';
+        sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> Profile`;
+        sideAuthButton.textContent = 'Login';
+        sideAuthButton.href = 'login.html';
+        sideAuthButton.onclick = null;
+    }
+}
+
+/* ===== BACKEND HEALTH CHECK ===== */
+async function checkBackendHealth() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return response.ok;
+    } catch (error) {
+        console.warn('Backend is not running. Using fallback mode.');
+        return false;
+    }
+}
+
+/* ===== CART COUNT (OPTIONAL, KEPT) ===== */
+function updateCartCount() {
+    const cartItems = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+    const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+
+    const sideCartCount = document.getElementById('side-cart-count');
+    if (sideCartCount) {
+        sideCartCount.textContent = totalItems;
+    }
+}
+
+/* ===== INITIALIZE ON PAGE LOAD ===== */
+document.addEventListener('DOMContentLoaded', async function() {
+    const isBackendRunning = await checkBackendHealth();
+
+    if (!isBackendRunning) {
+        console.log('Running in offline/fallback mode');
+    }
+
+    updateSideNavigation();
+    updateCartCount();
+
+    /* ===== CONTACT FORM (REAL BACKEND) ===== */
+   
+
+    const contactForm = document.getElementById('contact-form');
+    const successMessage = document.getElementById('success-message');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value.trim()
+            };
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    successMessage.style.display = 'block';
+                    contactForm.reset();
+
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    alert(data.message || 'Failed to send message.');
+                }
+            } catch (error) {
+                console.error('Contact form error:', error);
+                alert('Server error. Please try again later.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    }
+
+    /* ===== EMAIL VALIDATION ===== */
+    const emailField = document.getElementById('email');
+    if (emailField) {
+        const emailError = document.createElement('span');
+        emailError.style.color = '#ff4444';
+        emailError.style.fontSize = '12px';
+        emailError.style.marginTop = '5px';
+        emailError.style.display = 'none';
+        emailError.textContent = 'Please include "@" in the email address';
+        emailField.parentElement.appendChild(emailError);
+
+        emailField.addEventListener('input', function() {
+            const emailValue = this.value;
+
+            if (emailValue.length > 0 && !emailValue.includes('@')) {
+                emailError.style.display = 'block';
+                this.style.borderColor = '#ff4444';
+            } else {
+                emailError.style.display = 'none';
+                this.style.borderColor = '';
+            }
+        });
+    }
+});
+</script>
+
+    <!-- <script>
+    // ===== SIDE NAVIGATION FUNCTIONALITY =====
+    const menuToggle = document.getElementById('menuToggle');
+    const sideNav = document.getElementById('sideNav');
+    const navOverlay = document.getElementById('navOverlay');
+
+    // Toggle side navigation
+    if (menuToggle && sideNav && navOverlay) {
+        menuToggle.addEventListener('click', function() {
+            sideNav.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+        });
+
+        // Close side navigation when clicking overlay
+        navOverlay.addEventListener('click', function() {
+            sideNav.classList.remove('active');
+            navOverlay.classList.remove('active');
+        });
+
+        // Close side navigation when clicking ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sideNav.classList.contains('active')) {
+                sideNav.classList.remove('active');
+                navOverlay.classList.remove('active');
+            }
+        });
+    }
+
+    // ===== BACKEND-ENABLED AUTH FUNCTIONS =====
+    const API_BASE_URL = 'http://localhost:3000';
+
+    function checkUserLoggedIn() {
+        const userId = localStorage.getItem('userId');
+        const userEmail = localStorage.getItem('userEmail');
+        return !!(userId && userEmail);
+    }
+
+    async function setUserLoggedIn(status) {
+        if (!status) {
+            // Logout - clear all local storage
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userData');
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('loginCount');
+            
+            // Optionally call backend logout endpoint if you have one
+            try {
+                await fetch(`${API_BASE_URL}/logout`, { method: 'POST' });
+            } catch (error) {
+                console.log('Backend logout optional');
+            }
+        } else {
+            localStorage.setItem('isLoggedIn', 'true');
+        }
+    }
+
+    async function updateSideNavigation() {
+        const sideAuthButton = document.getElementById('side-auth-button');
+        const sideUserInfo = document.getElementById('side-user-info');
+        const sideUserName = document.getElementById('side-user-name');
+        const sideProfileLink = document.getElementById('side-profile-link');
+        
+        if (checkUserLoggedIn()) {
+            const userEmail = localStorage.getItem('userEmail') || '';
+            const userName = userEmail.split('@')[0] || 'User';
+            
+            sideUserInfo.style.display = 'block';
+            sideUserName.textContent = userName;
+            sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> ${userName}`;
+            sideAuthButton.textContent = 'Logout';
+            sideAuthButton.href = '#';
+            sideAuthButton.onclick = async function(e) {
+                e.preventDefault();
+                await setUserLoggedIn(false);
+                localStorage.removeItem('tarkaCart');
+                localStorage.removeItem('tarkaCurrentOrder');
+                window.location.href = 'login.html';
+            };
+            
+            // Optional: Fetch user data from backend
+            try {
+                const userId = localStorage.getItem('userId');
+                if (userId) {
+                    const response = await fetch(`${API_BASE_URL}/user/${userId}`);
+                    if (response.ok) {
+                        const userData = await response.json();
+                        if (userData.success) {
+                            localStorage.setItem('userData', JSON.stringify(userData.user));
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('Optional: Could not fetch user details');
+            }
+        } else {
+            sideUserInfo.style.display = 'none';
+            sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> Profile`;
+            sideAuthButton.textContent = 'Login';
+            sideAuthButton.href = 'login.html';
+            sideAuthButton.onclick = null;
+        }
+    }
+
+    // === BACKEND HEALTH CHECK ===
+    async function checkBackendHealth() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/`, { 
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            return response.ok;
+        } catch (error) {
+            console.warn('Backend is not running. Using fallback mode.');
+            return false;
+        }
+    }
+
+    // Update cart count
+    function updateCartCount() {
+        const cartItems = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+        const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+        
+        const sideCartCount = document.getElementById('side-cart-count');
+        if (sideCartCount) {
+            sideCartCount.textContent = totalItems;
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', async function() {
+        const isBackendRunning = await checkBackendHealth();
+        
+        if (!isBackendRunning) {
+            console.log('Running in offline/fallback mode');
+        }
+        
+        updateSideNavigation();
+        updateCartCount();
+        
+        // Contact form functionality
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const submitBtn = event.target.querySelector('.submit-btn');
+                const successMessage = document.getElementById('success-message');
+                
+                // Disable button and show loading
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+                
+                // Simulate form submission
+                setTimeout(() => {
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    
+                    // Reset form
+                    event.target.reset();
+                    
+                    // Re-enable button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                    
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 1500);
+            });
+        }
+
+        // Email validation
+        const emailField = document.getElementById('email');
+        if (emailField) {
+            const emailError = document.createElement('span');
+            emailError.style.color = '#ff4444';
+            emailError.style.fontSize = '12px';
+            emailError.style.marginTop = '5px';
+            emailError.style.display = 'none';
+            emailError.textContent = 'Please include "@" in the email address';
+            emailField.parentElement.appendChild(emailError);
+
+            emailField.addEventListener('input', function() {
+                const emailValue = this.value;
+                
+                if (emailValue.length > 0 && !emailValue.includes('@')) {
+                    emailError.style.display = 'block';
+                    this.style.borderColor = '#ff4444';
+                } else {
+                    emailError.style.display = 'none';
+                    this.style.borderColor = '';
+                }
+            });
+        }
+    });
+    </script> -->
+</body>
+</html>

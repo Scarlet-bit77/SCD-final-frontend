@@ -1,0 +1,602 @@
+/* ===== HIGH CONTRAST MODE - COMPLETE STYLING ===== */
+
+/* Contrast Button */
+.contrast-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #F55B23, #FFC107);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contrast-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* HIGH CONTRAST MODE */
+body.high-contrast {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+/* Navbar */
+body.high-contrast .navbar {
+    background: #000 !important;
+    border-bottom: 3px solid #fff !important;
+}
+
+body.high-contrast .logo {
+    color: #fff !important;
+}
+
+body.high-contrast .nav-links a {
+    color: #fff !important;
+}
+
+body.high-contrast .nav-links a:hover,
+body.high-contrast .nav-links a.active {
+    color: #ffff00 !important;
+    border-bottom-color: #ffff00 !important;
+}
+
+body.high-contrast .menu-toggle span {
+    background: #fff !important;
+}
+
+/* Hero Section */
+body.high-contrast .hero {
+    background: #000 !important;
+}
+
+body.high-contrast .hero h1,
+body.high-contrast .hero p {
+    color: #fff !important;
+    text-shadow: none !important;
+}
+
+body.high-contrast .cta-button {
+    background: #fff !important;
+    color: #000 !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .cta-button:hover {
+    background: #ffff00 !important;
+    color: #000 !important;
+    border-color: #ffff00 !important;
+    transform: translateY(-3px);
+}
+
+/* Sections */
+
+body.high-contrast .features,
+body.high-contrast .gallery,
+body.high-contrast .contact,
+
+body.high-contrast .favorites-container,
+body.high-contrast .cart-container {
+    background: #000 !important;
+}
+
+body.high-contrast .section-title,
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast h4,
+body.high-contrast p,
+body.high-contrast span,
+body.high-contrast label {
+    color: #fff !important;
+}
+
+
+/* Feature Cards */
+body.high-contrast .feature-card {
+    background: #3a3a3a !important;
+    border: 3px solid #fff !important;
+    box-shadow: none !important;
+}
+
+body.high-contrast .feature-card:hover {
+    background: #5a5a5a !important;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3) !important;
+}
+
+
+body.high-contrast .feature-card i {
+    color: #ffff00 !important;
+}
+
+body.high-contrast .feature-card h3,
+body.high-contrast .feature-card p {
+    color: #fff !important;
+}
+
+/* Gallery */
+body.high-contrast .gallery-item {
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .gallery-item img {
+    border: 3px solid #fff !important;
+    opacity: 0.9;
+}
+
+body.high-contrast .gallery-item:hover img {
+    opacity: 1;
+}
+
+/* Home page - High Contrast */
+/* Category Cards - High Contrast */
+body.high-contrast .categories {
+    background: #999898 !important;
+}
+
+
+body.high-contrast .category-card {
+    background: #6a6a6a !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .category-card:hover {
+    background: #7a7a7a !important;
+    box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3) !important;
+}
+
+body.high-contrast .category-header h3 {
+    color: #fff !important;
+}
+
+body.high-contrast .category-card p {
+    color: #fff !important;
+}
+
+body.high-contrast .rating-text {
+    color: #ffff00 !important;
+}
+
+body.high-contrast .rating .full-star {
+    color: #ffff00 !important;
+}
+
+body.high-contrast .category-calories,
+body.high-contrast .category-delivery {
+    color: #fff !important;
+}
+
+body.high-contrast .calories,
+body.high-contrast .delivery-time {
+    color: #fff !important;
+}
+
+body.high-contrast .category-img {
+    opacity: 0.9;
+    border-bottom-color: #fff !important;
+}
+
+/* ===== ABOUT US PAGE - HIGH CONTRAST ===== */
+
+
+/* Hide background image and make everything black */
+body.high-contrast .bg-animation {
+    display: none !important;
+}
+
+body.high-contrast .about,
+body.high-contrast .about-container {
+    background: #000 !important;
+}
+
+/* Hero About Section */
+body.high-contrast .hero-about {
+    background: #000 !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .hero-about h1 {
+    color: #fff !important;
+    text-shadow: none !important;
+}
+
+body.high-contrast .hero-about p {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+
+body.high-contrast .hero-illustration {
+    border: 3px solid #fff !important;
+    opacity: 0.9;
+}
+
+/* Glass Cards */
+body.high-contrast .card.glass {
+    background: #6a6a6a !important;
+    border: 3px solid #fff !important;
+    backdrop-filter: none !important;
+}
+
+body.high-contrast .card.glass h2,
+body.high-contrast .card.glass h3,
+body.high-contrast .card.glass p,
+body.high-contrast .card.glass li {
+    color: #fff !important;
+}
+
+body.high-contrast .mission-list li {
+    color: #fff !important;
+}
+
+/* Section Headings */
+body.high-contrast .section-heading {
+    color: #fff !important;
+}
+
+/* Why Choose Cards */
+body.high-contrast .why-card {
+    background: #6a6a6a !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .why-card h3,
+body.high-contrast .why-card p {
+    color: #fff !important;
+}
+
+body.high-contrast .why-card i {
+    color: #ffff00 !important;
+}
+
+/* Timeline */
+body.high-contrast .timeline-section {
+    background: transparent !important;
+}
+
+body.high-contrast .timeline time {
+    color: #ffff00 !important;
+}
+
+body.high-contrast .timeline-content {
+    background: #6a6a6a !important;
+    border: 2px solid #fff !important;
+}
+
+body.high-contrast .timeline-content h4,
+body.high-contrast .timeline-content p {
+    color: #fff !important;
+}
+
+/* Stats Section */
+body.high-contrast .stat {
+    background: #6a6a6a !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .stat-number {
+    color: #ffff00 !important;
+}
+
+body.high-contrast .stat p {
+    color: #fff !important;
+}
+
+/* Team Section */
+body.high-contrast .team-card h3,
+body.high-contrast .team-card p {
+    color: #fff !important;
+}
+
+body.high-contrast .team-img {
+    border: 3px solid #fff !important;
+    opacity: 0.9;
+}
+
+/* CTA Section */
+body.high-contrast .cta {
+    background: #6a6a6a !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .cta h2,
+body.high-contrast .cta p {
+    color: #fff !important;
+}
+
+body.high-contrast .cta .cta-button {
+    background: #fff !important;
+    color: #000 !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .cta .cta-button:hover {
+    background: #ffff00 !important;
+    color: #000 !important;
+    border-color: #ffff00 !important;
+}
+/* ===== MENU PAGE - HIGH CONTRAST ===== */
+
+/* Glass Container - Grey Color (for inline styled divs) */
+body.high-contrast div[style*="rgba(255, 255, 255, 0.85)"] {
+    background: #999898  !important;
+    border: 3px solid #fff !important;
+    backdrop-filter: none !important;
+}
+
+body.high-contrast .section-title {
+    color: #fff !important;
+}
+
+body.high-contrast .category-heading {
+    color: #fff !important;
+    border-bottom-color: #ffff00 !important;
+}
+
+/* Food Items */
+body.high-contrast .food-item {
+    background: #6a6a6a !important;
+    border: 3px solid #fff !important;
+    backdrop-filter: none !important;
+}
+
+body.high-contrast .food-item:hover {
+    background: #7a7a7a !important;
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3) !important;
+}
+
+body.high-contrast .food-item::before {
+    display: none !important;
+}
+
+body.high-contrast .food-name {
+    color: #fff !important;
+}
+
+
+body.high-contrast .food-rating i {
+    color: #ffff00 !important;
+}
+body.high-contrast .food-price {
+    color: #ffff00 !important;
+}
+
+body.high-contrast .food-image img {
+    border: 2px solid #fff !important;
+    opacity: 0.9;
+}
+
+/* Heart Button */
+body.high-contrast .heart-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid #fff !important;
+}
+
+body.high-contrast .heart-btn:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+body.high-contrast .heart-btn i {
+    color: #fff !important;
+}
+
+
+
+
+
+/* ===== ITEM DETAIL PAGE - HIGH CONTRAST ===== */
+
+/* Item Detail Glass Container - Grey */
+body.high-contrast div[style*="rgba(255, 255, 255, 0.75)"] {
+    background: #999898 !important;
+    border: 3px solid #fff !important;
+    backdrop-filter: none !important;
+}
+
+/* Item Detail Content */
+body.high-contrast .item-detail-container h2,
+body.high-contrast .item-detail-container h3,
+body.high-contrast .item-detail-container p,
+body.high-contrast .item-detail-container label {
+    color: #fff !important;
+}
+
+/* Item Detail Price */
+body.high-contrast .item-detail-container .price,
+body.high-contrast .item-detail-container .total-price {
+    color: #ffff00 !important;
+}
+
+/* Item Detail Buttons */
+body.high-contrast .item-detail-container button {
+    background: #fff !important;
+    color: #000 !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .item-detail-container button:hover {
+    background: #ffff00 !important;
+    border-color: #ffff00 !important;
+}
+
+/* Item Detail Image */
+body.high-contrast .item-detail-container img {
+    border: 3px solid #fff !important;
+    opacity: 0.9;
+}
+/* Category Filter Buttons */
+
+
+body.high-contrast .category-filter button {
+    background: #6a6a6a !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+
+body.high-contrast .category-filter button:hover,
+body.high-contrast .category-filter button.active {
+    background: #fff !important;
+    color: #000 !important;
+    border-color: #fff !important;
+}
+
+
+/* Favorites Cards */
+
+body.high-contrast .fav-card {
+     background: #8a8a8a !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .fav-card:hover {
+   background: #9a9a9a !important;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3) !important;
+}
+
+body.high-contrast .fav-card h3,
+body.high-contrast .fav-card .price {
+    color: #fff !important;
+}
+
+body.high-contrast .fav-card .price {
+    color: #ffff00 !important;
+}
+
+body.high-contrast .empty-state h2,
+body.high-contrast .empty-state p {
+    color: #fff !important;
+}
+
+/* Cart Items */
+
+
+body.high-contrast .cart-item {
+   background: #9a9a9a !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .cart-item h3,
+body.high-contrast .cart-item p {
+    color: #fff !important;
+}
+
+body.high-contrast .cart-summary {
+     background: #9a9a9a !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .cart-summary h3,
+body.high-contrast .cart-summary p {
+    color: #fff !important;
+}
+body.high-contrast.promo-title {
+      color: #ffff00 !important;
+}
+body.high-contrast .checkout-btn {
+    background: #fff !important;
+    color: #000 !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .checkout-btn:hover {
+    background: #ffff00 !important;
+    border-color: #ffff00 !important;
+}
+
+/* Contact Form *//* Contact Form - LIGHTER GREY */
+
+body.high-contrast .contact-form input,
+body.high-contrast .contact-form textarea {
+    background: #9a9a0a !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+
+body.high-contrast .contact-form input::placeholder,
+body.high-contrast .contact-form textarea::placeholder {
+    color: #999 !important;
+}
+
+body.high-contrast .submit-btn {
+    background: #fff !important;
+    color: #000 !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .submit-btn:hover {
+    background: #ffff00 !important;
+    border-color: #ffff00 !important;
+}
+
+/* Footer */
+body.high-contrast footer {
+    background: #000 !important;
+    border-top: 3px solid #fff !important;
+}
+
+body.high-contrast .footer-content h3,
+body.high-contrast .footer-content p,
+body.high-contrast .footer-content a {
+    color: #fff !important;
+}
+
+body.high-contrast .social-links a {
+    background: #fff !important;
+    color: #000 !important;
+    border: 2px solid #fff !important;
+}
+
+body.high-contrast .social-links a:hover {
+    background: #ffff00 !important;
+    color: #000 !important;
+    border-color: #ffff00 !important;
+}
+
+/* Contrast Button in High Contrast Mode */
+body.high-contrast .contrast-btn {
+    background: #fff !important;
+    color: #000 !important;
+    border: 3px solid #fff !important;
+}
+
+body.high-contrast .contrast-btn:hover {
+    background: #ffff00 !important;
+    color: #000 !important;
+    border-color: #ffff00 !important;
+}
+
+/* Notification */
+body.high-contrast .notification {
+    background: #fff !important;
+    color: #000 !important;
+    border: 3px solid #fff !important;
+}
+
+/* Heart Buttons */
+body.high-contrast .heart-btn,
+body.high-contrast .fav-heart-btn {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 2px solid #fff !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contrast-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        bottom: 20px;
+        right: 20px;
+    }
+}

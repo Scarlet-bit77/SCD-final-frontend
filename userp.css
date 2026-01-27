@@ -1,0 +1,815 @@
+/* Profile Page Specific Styles */
+.profile-page {
+    padding-top: 100px;
+    min-height: 100vh;
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.profile-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-orange);
+    margin-bottom: 0.5rem;
+    animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+.profile-header p {
+    font-size: 2.2rem;
+    color: var(--primary-yellow);
+    opacity: 0.8;
+}
+
+/* Two Column Layout for Form and Stats */
+.profile-cards-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .profile-cards-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Both cards share same glass effect */
+.profile-form-card,
+.profile-stats-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+}
+
+/* Glass effect overlay for both cards */
+.profile-form-card::after,
+.profile-stats-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.4) 0%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    z-index: -1;
+    border-radius: 20px;
+}
+
+.profile-form-card::before,
+.profile-stats-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+    transition: left 0.5s;
+}
+
+.profile-form-card:hover,
+.profile-stats-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(245, 91, 35, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.profile-form-card:hover::before,
+.profile-stats-card:hover::before {
+    left: 100%;
+}
+
+/* Form Card (Left Side) */
+.profile-form-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form content layout */
+.profile-form-content {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .profile-form-content {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Profile Picture */
+.profile-picture-section {
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.profile-picture-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.profile-picture {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid var(--primary-orange);
+    box-shadow: 0 10px 30px rgba(245, 91, 35, 0.2);
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-picture-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-orange), var(--primary-yellow));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.5rem;
+}
+
+.edit-picture-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.edit-picture-btn:hover {
+    background: var(--dark-orange);
+    transform: scale(1.1);
+}
+
+/* Form Details */
+.profile-details {
+    flex: 1;
+}
+
+.profile-form-group {
+    margin-bottom: 1.2rem;
+}
+
+.profile-form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.profile-input-group {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.profile-input-group input, 
+.profile-input-group textarea {
+    flex: 1;
+    padding: 11px 16px;
+    border: 2px solid rgba(233, 236, 239, 0.8);
+    border-radius: 10px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 100%;
+}
+
+.profile-input-group input:focus,
+.profile-input-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-orange);
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(245, 91, 35, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.profile-textarea {
+    min-height: 90px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* Stats Card (Right Side) */
+.profile-stats-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-card-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.stats-card-header h2 {
+    color: var(--primary-orange);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.stats-card-header p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Stats Grid - 2x2 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    flex: 1;
+}
+
+/* Stat Cards - Solid orange background */
+.stat-card {
+    background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+    color: white;
+    padding: 1.3rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(245, 91, 35, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(245, 91, 35, 0.4);
+    background: linear-gradient(135deg, var(--dark-orange), var(--primary-orange));
+}
+
+.stat-card h3 {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+    opacity: 0.9;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0.4rem 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card .label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+/* Save Button */
+#save-btn {
+    width: 160px;
+    margin-top: 1.5rem;
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+    text-align: center;
+    padding: 13px 20px;
+    background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(245, 91, 35, 0.3);
+}
+
+#save-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(245, 91, 35, 0.4);
+    background: linear-gradient(135deg, var(--dark-orange), var(--primary-orange));
+}
+
+#save-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(245, 91, 35, 0.3);
+}
+
+/* Order History Section */
+.orders-section {
+    margin-top: 2rem;
+}
+
+.orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(245, 91, 35, 0.2);
+}
+
+.orders-header h2 {
+    color: var(--primary-orange);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.orders-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.order-card {
+    background: rgba(248, 249, 250, 0.7);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid rgba(233, 236, 239, 0.5);
+}
+
+.order-card:hover {
+    background: rgba(245, 91, 35, 0.1);
+    backdrop-filter: blur(10px);
+    transform: translateX(10px);
+    border-color: var(--primary-orange);
+}
+
+.order-info h3 {
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.order-info p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+.order-amount {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--primary-orange);
+}
+
+.no-orders {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    background: rgba(248, 249, 250, 0.7);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    border: 2px dashed var(--primary-orange);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .profile-cards-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-stats-card {
+        order: 3; /* Stats card comes after form card on mobile */
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 1rem;
+    }
+    
+    .profile-form-card,
+    .profile-stats-card {
+        padding: 1.5rem;
+    }
+    
+    .profile-form-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .order-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .order-amount {
+        align-self: flex-end;
+    }
+    
+    #save-btn {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .stat-card {
+        min-height: 100px;
+        padding: 1rem;
+    }
+    
+    .stat-card .value {
+        font-size: 1.5rem;
+    }
+    
+    .profile-form-group input,
+    .profile-form-group textarea {
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+}
+
+/* Animations */
+@keyframes textGlow {
+    from { text-shadow: 0 0 10px rgba(245, 91, 35, 0.3); }
+    to { text-shadow: 0 0 20px rgba(245, 91, 35, 0.6); }
+}
+
+/* Hidden class for file input */
+.hidden {
+    display: none;
+}
+
+/* Glass effect animations */
+@keyframes glassPulse {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 0.95; }
+}
+
+.profile-form-card,
+.profile-stats-card {
+    animation: glassPulse 8s ease-in-out infinite;
+}
+
+/* Stagger animation for stat cards */
+.stat-card:nth-child(1) { animation-delay: 0s; }
+.stat-card:nth-child(2) { animation-delay: 0.1s; }
+.stat-card:nth-child(3) { animation-delay: 0.2s; }
+.stat-card:nth-child(4) { animation-delay: 0.3s; }
+
+.stat-card {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Stats Card (Right Side) */
+.profile-stats-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-card-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.stats-card-header h2 {
+    color: var(--primary-orange);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.stats-card-header p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Stats Grid - 2x2 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    flex: 1;
+}
+
+/* Stat Cards - Orange background with white text */
+.stat-card {
+    background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+    color: white;
+    padding: 1.3rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(245, 91, 35, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(245, 91, 35, 0.4);
+    background: linear-gradient(135deg, var(--dark-orange), var(--primary-orange));
+}
+
+/* Stat card text styling */
+.stat-card h3 {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+    color: rgba(255, 255, 255, 0.9); /* Lighter white for better visibility */
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0.4rem 0;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Stronger shadow for contrast */
+}
+
+.stat-card .label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.9); /* Lighter white */
+    font-weight: 500;
+}
+
+/* Specific styling for each stat type if needed */
+.stat-card.total-spent {
+    background: linear-gradient(135deg, #FF6B35, #FF8C42);
+}
+
+.stat-card.total-orders {
+    background: linear-gradient(135deg, #FF7A47, #F55B23);
+}
+
+.stat-card.member-since {
+    background: linear-gradient(135deg, #E04A1A, #C43A0A);
+}
+
+.stat-card.avg-order {
+    background: linear-gradient(135deg, #FF8C42, #FF6B35);
+}
+/* Profile Stats section styling */
+.stats-card-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.stats-card-header h2 {
+    color: var(--primary-orange);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.stats-card-header p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Stats Grid - 2x2 layout for small cubes */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    flex: 1;
+}
+
+/* Small Stat Cube Design */
+.stat-cube {
+    background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+    color: white;
+    padding: 1.2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(245, 91, 35, 0.25);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 110px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle shine effect on cubes */
+.stat-cube::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        transparent 20%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 80%
+    );
+    transform: rotate(30deg);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stat-cube:hover::before {
+    opacity: 1;
+    animation: cubeShine 1.5s ease;
+}
+
+@keyframes cubeShine {
+    0% { left: -50%; opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { left: 150%; opacity: 0; }
+}
+
+.stat-cube:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(245, 91, 35, 0.35);
+    background: linear-gradient(135deg, var(--dark-orange), var(--primary-orange));
+}
+
+/* Cube content styling */
+.cube-label {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.cube-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    margin: 0.3rem 0;
+    line-height: 1;
+}
+
+.cube-subtext {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+    margin-top: 0.3rem;
+}
+
+/* Specific cube variations */
+.stat-cube.total-orders {
+    background: linear-gradient(135deg, #FF7A47, #F55B23);
+}
+
+.stat-cube.total-orders:hover {
+    background: linear-gradient(135deg, #F55B23, #FF7A47);
+}
+
+.stat-cube.total-spent {
+    background: linear-gradient(135deg, #FF8C42, #E04A1A);
+}
+
+.stat-cube.total-spent:hover {
+    background: linear-gradient(135deg, #E04A1A, #FF8C42);
+}
+
+.stat-cube.member-since {
+    background: linear-gradient(135deg, #FF6B35, #C43A0A);
+}
+
+.stat-cube.member-since:hover {
+    background: linear-gradient(135deg, #C43A0A, #FF6B35);
+}
+
+.stat-cube.avg-order {
+    background: linear-gradient(135deg, #FF9A5A, #FF6B35);
+}
+
+.stat-cube.avg-order:hover {
+    background: linear-gradient(135deg, #FF6B35, #FF9A5A);
+}
+
+/* Icon inside cube (optional) */
+.cube-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+/* For the specific values in your image */
+.cube-value.small-number {
+    font-size: 2rem; /* Larger for single/double digits */
+}
+
+.cube-value.money {
+    font-size: 1.6rem; /* Slightly smaller for money values */
+}
+
+.cube-value.date {
+    font-size: 1.4rem; /* For date values */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .stats-grid {
+        gap: 0.8rem;
+    }
+    
+    .stat-cube {
+        min-height: 100px;
+        padding: 1rem;
+    }
+    
+    .cube-value {
+        font-size: 1.5rem;
+    }
+    
+    .cube-label {
+        font-size: 0.7rem;
+    }
+    
+    .cube-subtext {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .stat-cube {
+        min-height: 90px;
+        padding: 0.9rem;
+    }
+    
+    .cube-value {
+        font-size: 1.4rem;
+    }
+}

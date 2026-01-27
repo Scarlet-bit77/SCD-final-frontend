@@ -1,0 +1,300 @@
+/* ABOUT.CSS – Improved, cleaner, unified glass design for TARKA */
+
+/* ===== GLOBAL THEME VARIABLES ===== */
+:root{
+  --primary-orange: #F55B23;
+  --light-orange: #FF7A47;
+  --dark-orange: #E04A1A;
+  --primary-yellow: #FFD700;
+  --light-yellow: #FFF3CD;
+  --dark-yellow: #F4C430;
+  --white: #FFFFFF;
+  --light-gray: #F8F9FA;
+  --text-dark: #2C3E50;
+  --text-light: #6C757D;
+  --glass-bg: rgba(255,255,255,0.6);
+  --glass-border: rgba(255,255,255,0.12);
+  --container-width: 1200px;
+}
+
+/* Basic resets */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: 'Poppins', 'Segoe UI', Tahoma, sans-serif;
+  color:var(--text-dark);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+
+/* ===== Background Image ===== */
+.bg-animation {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image: url("https://images.unsplash.com/photo-1600891964599-f61ba0e24092");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.85);
+}
+
+/* ===== Unified Glass Panel (Covers All Content) ===== */
+.main-glass-wrapper {
+    position: relative;
+    z-index: 5;
+    max-width: 1300px;
+    margin: 120px auto 60px;
+    padding: 35px 35px 50px;
+    border-radius: 22px;
+
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* Container */
+.container{max-width:var(--container-width);margin:0 auto;padding:0 20px}
+
+
+/* ===== NAVIGATION STYLES ===== */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-orange);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between image and text */
+    transition: transform 0.3s ease;
+}
+
+.logo-img {
+    width: 70px;  /* Adjust as needed */
+    height: 70px;
+    border-radius: 50%; /* Optional: makes it circular */
+    object-fit: contain;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: var(--primary-orange);
+
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-orange);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+/* ===== FIX NAVBAR SPACING ===== */
+.navbar .container {
+    max-width: 100%;
+    padding: 0 20px;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    width: 100%;
+}
+
+/* Push logo to the very left */
+.logo {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+/* Push nav links to the very right */
+.nav-links {
+    margin-right: 0;
+    padding-right: 0;
+    gap: 1.85rem;
+}
+.nav-links i {
+    margin-right: 8px;
+    font-size: 1rem;
+    width: 16px;
+    text-align: center;
+}
+
+/* Login button icon */
+.btn i {
+    margin-right: 6px;
+}
+/* ===== BUTTON STYLES (Login/Logout Button) ===== */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-orange), var(--light-orange));
+    color: var(--white);
+    white-space: nowrap;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--light-orange), #ffd699);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(245, 91, 35, 0.4);
+    color: var(--white);
+}
+
+/* Secondary Button (for hero buttons) */
+.btn-secondary {
+    background: var(--white);
+    color: var(--primary-orange);
+    border: 2px solid var(--primary-orange);
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-orange);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(245, 91, 35, 0.4);
+}
+
+/* ===== HERO SECTION ===== */
+.hero-about{
+  padding:40px 0 20px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.85), rgba(245,91,35,0.85));
+  border-radius:18px;
+  margin-bottom:30px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+.hero-inner{display:flex;gap:2rem;align-items:center;justify-content:space-between}
+.hero-content{max-width:620px}
+.hero-about h1{font-size:2.8rem;margin-bottom:.5rem;color:white;text-shadow:2px 2px 6px rgba(0,0,0,0.3)}
+.hero-about p{font-size:1.05rem;margin-bottom:1rem;color:white;opacity:.9}
+.hero-illustration{width:320px;max-width:40vw;border-radius:20px;box-shadow:0 12px 30px rgba(0,0,0,0.2)}
+
+/* Glass Cards */
+.card-section{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:2.5rem}
+.card.glass{
+  background:linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.64));
+  border-radius:16px;padding:1.6rem;border:1px solid var(--glass-border);
+  box-shadow:0 10px 30px rgba(0,0,0,0.06);backdrop-filter:blur(8px);
+}
+
+/* Lists */
+.mission-list{list-style:disc;padding-left:1rem;margin-top:.6rem}
+.mission-list li{margin:0.6rem 0}
+
+/* Why Choose */
+.section-heading{text-align:center;font-size:1.9rem;margin-bottom:1.25rem;color:var(--text-dark)}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.why-card{background:white;padding:1.1rem;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.06);text-align:center}
+
+/* Timeline */
+.timeline-section{margin:2rem 0;padding:1rem 0}
+.timeline{list-style:none;display:grid;gap:1rem;max-width:900px;margin:0 auto}
+.timeline li{display:flex;gap:1rem}
+.timeline time{min-width:64px;font-weight:700;color:var(--primary-orange)}
+.timeline-content{
+  background:white;padding:.8rem 1rem;border-radius:10px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.06)
+}
+
+/* Stats */
+.stats-section{margin:2.2rem 0}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;max-width:1000px;margin:0 auto}
+.stat{background:white;padding:1rem;border-radius:12px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.06)}
+.stat-number{font-size:1.6rem;color:var(--primary-orange);font-weight:800;margin-bottom:.25rem}
+
+/* Team */
+.team-section{margin:2rem 0}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.team-card{text-align:center}
+.team-img{width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:.7rem;box-shadow:0 8px 20px rgba(0,0,0,0.08)}
+
+/* CTA */
+.cta-section{margin:2.5rem 0}
+.cta{text-align:center;background:white;padding:1.5rem;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,0.1)}
+.cta h2{margin-bottom:1rem}
+
+/* Footer */
+.footer{background:var(--text-dark);color:white;padding:2.5rem 0;margin-top:3rem;border-radius:16px}
+.footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.footer-section h3{color:var(--primary-orange);margin-bottom:.6rem}
+.footer-bottom{text-align:center;padding-top:1rem;color:var(--text-light)}
+
+/* Responsive */
+@media (max-width:900px){
+  .hero-inner{flex-direction:column;text-align:center}
+  .hero-illustration{width:260px}
+}
+@media (max-width:480px){
+  .logo-img{width:48px;height:48px}
+  .nav-links{gap:1rem}
+}

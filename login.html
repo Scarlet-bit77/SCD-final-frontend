@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TARKA</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="sidenav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- 🔥 Fire Background Video -->
+  <video autoplay muted loop playsinline class="fire-bg">
+    <source src="firebg.mp4.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="fire-overlay"></div>
+
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+  </div>
+
+  <!-- Header with Menu Toggle -->
+  <div class="header">
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    <a href="home.html" class="logo">
+      TARKA
+    </a>
+    <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+  </div>
+
+  <!-- Side Navigation -->
+  <div class="side-nav" id="sideNav">
+    <div class="nav-header">
+      <a href="home.html" class="nav-logo">
+        <img src="logo (2).png" alt="Tarka Logo" class="nav-logo-img">
+        <span>TARKA</span>
+      </a>
+    </div>
+    
+    <ul class="nav-links">
+      <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+      <li>
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+          Cart <span class="cart-count" id="side-cart-count">0</span>
+        </a>
+      </li>
+      <li><a href="tracking.html"><i class="fa-solid fa-location-dot"></i> Track Order</a></li>
+      <li><a href="userp.html" id="side-profile-link"><i class="fa-solid fa-user"></i> Profile</a></li>
+      <li><a href="orders.html"><i class="fa-solid fa-receipt"></i> My Orders</a></li>
+        <li><a href="deals.html"><i class="fa-solid fa-tags"></i> Deals</a></li>
+                     <li><a href="favourites.html"><i class="fas fa-heart"></i>Favorites</a></li> 
+                      <li><a href="contactus.html"><i class="fas fa-envelope"></i>Contact Us </a></li>
+                       <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+    </ul>
+    
+    <div class="nav-footer">
+      <div class="user-info" id="side-user-info" style="display: none;">
+        <i class="fas fa-user-circle"></i>
+        <span id="side-user-name">Loading...</span>
+      </div>
+      <a href="login.html" class="auth-btn" id="side-auth-button">Login</a>
+    </div>
+  </div>
+
+  <!-- Navigation Overlay -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- Login Form Section -->
+  <div class="login-container">
+    <div class="container" style="display: flex; justify-content: center; align-items: center; gap: 30px;">
+      <!-- Left Images (horizontal row) -->
+      <div class="side-row">
+        <img src="https://i.pinimg.com/736x/a6/e5/25/a6e525e2e1040bbd4fdc646357ea9123.jpg"
+             alt="Food Left 1" class="side-img left" style="animation-delay: 0s;">
+        <img src="https://i.pinimg.com/originals/2b/a9/36/2ba9369dac767d79411fb3a544fd8563.png"
+             alt="Food Left 2" class="side-img left" style="animation-delay: 2s;">
+      </div>
+      
+      <div class="glass-card">
+        <form class="login-form" id="auth-form" onsubmit="handleFormSubmit(event)">
+          <div class="toggle-btns">
+            <button type="button" id="signInBtn" class="active">Sign In</button>
+            <button type="button" id="signUpBtn">Sign Up</button>
+          </div>
+
+          <h2 id="form-title" style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-orange);">
+            Welcome Back
+          </h2>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <small id="email-error" style="color: red; display: none;">Enter a valid email address</small>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter a password" required>
+            <i class="fa-solid fa-eye password-toggle" id="togglePassword"></i>
+            <small id="password-error" style="color: red; display: none;"></small>
+            <div id="password-strength" style="margin-top: 5px; font-size: 14px;"></div>
+          </div>
+
+          <!-- Confirm Password (Signup only) -->
+          <div class="form-group" id="confirm-password-group" style="display: none;">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm password">
+            <i class="fa-solid fa-eye password-toggle" id="toggleConfirmPassword"></i>
+            <small id="confirm-error" style="color: red; display: none;">Passwords do not match</small>
+          </div>
+
+          <button type="submit" id="form-button" class="btn btn-primary" 
+                  style="width: 100%; margin-bottom: 1rem;">Sign In</button>
+
+          <p id="form-success" class="success-message" 
+             style="color: green; text-align: center; display: none;">Success!</p>
+        </form>
+      </div>
+
+      <!-- Right Images (horizontal row) -->
+      <div class="side-row">
+        <img src="https://i.pinimg.com/736x/f3/be/97/f3be97afa246acf68b3fe1ea0809bc93.jpg"
+             alt="Food Right 1" class="side-img right" style="animation-delay: 1s;">
+        <img src="https://i.pinimg.com/736x/09/fd/c3/09fdc36a5b12c69340180b18b22e7f68.jpg"
+             alt="Food Right 2" class="side-img right" style="animation-delay: 3s;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>TARKA</h3>
+          <p>Delivering happiness, one meal at a time. Experience the finest cuisine with our premium food delivery service.</p>
+        </div>
+         <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="menu.html" style="color: var(--text-light); text-decoration: none;">Menu</a></p>
+                    <p><a href="tracking.html" style="color: var(--text-light); text-decoration: none;">Track Order</a></p>
+                    <p><a href="home.html" style="color: var(--text-light); text-decoration: none;">Home</a></p>
+                    <p><a href="about.html" style="color: var(--text-light); text-decoration: none;">About Us</a></p>
+                    <p><a href="deals.html" style="color: var(--text-light); text-decoration: none;">Deals</a></p>
+                    <p><a href="contactus.html" style="color: var(--text-light); text-decoration: none;">Contact Us</a></p>
+                </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <p>📞 +92 345-123-4567</p>
+          <p>📧 hello@tarka.com</p>
+          <p>📍 123 Food Street, City</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 TARKA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ===== BACKEND CONFIGURATION =====
+  const API_BASE_URL = 'http://localhost:3000'; // Your MongoDB backend
+  
+  // ===== SIDE NAVIGATION FUNCTIONALITY =====
+  const menuToggle = document.getElementById('menuToggle');
+  const sideNav = document.getElementById('sideNav');
+  const navOverlay = document.getElementById('navOverlay');
+
+  // Toggle side navigation
+  menuToggle.addEventListener('click', function() {
+    sideNav.classList.toggle('active');
+    navOverlay.classList.toggle('active');
+  });
+
+  // Close side navigation when clicking overlay
+  navOverlay.addEventListener('click', function() {
+    sideNav.classList.remove('active');
+    navOverlay.classList.remove('active');
+  });
+
+  // Close side navigation when clicking ESC key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && sideNav.classList.contains('active')) {
+      sideNav.classList.remove('active');
+      navOverlay.classList.remove('active');
+    }
+  });
+
+  // ===== LOGIN FORM FUNCTIONALITY =====
+  (() => {
+    const signInBtn = document.getElementById("signInBtn");
+    const signUpBtn = document.getElementById("signUpBtn");
+    const formTitle = document.getElementById("form-title");
+    const confirmGroup = document.getElementById("confirm-password-group");
+    const formButton = document.getElementById("form-button");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirmPassword");
+    const togglePassword = document.getElementById("togglePassword");
+    const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+    const passwordError = document.getElementById("password-error");
+    const confirmError = document.getElementById("confirm-error");
+    const successMsg = document.getElementById("form-success");
+    const passwordStrength = document.getElementById("password-strength");
+
+    let isSignIn = true;
+
+    // === Toggle Eye Icons ===
+    togglePassword.addEventListener("click", () => {
+      const type = passwordInput.type === "password" ? "text" : "password";
+      passwordInput.type = type;
+      togglePassword.classList.toggle("fa-eye");
+      togglePassword.classList.toggle("fa-eye-slash");
+    });
+
+    toggleConfirmPassword.addEventListener("click", () => {
+      const type = confirmPasswordInput.type === "password" ? "text" : "password";
+      confirmPasswordInput.type = type;
+      toggleConfirmPassword.classList.toggle("fa-eye");
+      toggleConfirmPassword.classList.toggle("fa-eye-slash");
+    });
+
+    // === Switch Between Sign In / Sign Up ===
+    signInBtn.addEventListener("click", () => toggleForm(true));
+    signUpBtn.addEventListener("click", () => toggleForm(false));
+
+    function toggleForm(signIn) {
+      isSignIn = signIn;
+      confirmGroup.style.display = signIn ? "none" : "block";
+      formTitle.textContent = signIn ? "Welcome Back" : "Create Account";
+      formButton.textContent = signIn ? "Sign In" : "Sign Up";
+
+      signInBtn.classList.toggle("active", signIn);
+      signUpBtn.classList.toggle("active", !signIn);
+      successMsg.style.display = "none";
+      passwordError.style.display = "none";
+      confirmError.style.display = "none";
+      passwordInput.value = "";
+      confirmPasswordInput.value = "";
+    }
+
+    // === Validation Functions ===
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validatePassword(pwd) {
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return regex.test(pwd);
+    }
+
+    // === Live Password Strength Feedback ===
+    passwordInput.addEventListener("input", () => {
+      const value = passwordInput.value;
+      let strength = 0;
+      if (/[a-z]/.test(value)) strength++;
+      if (/[A-Z]/.test(value)) strength++;
+      if (/\d/.test(value)) strength++;
+      if (/[@$!%*?&]/.test(value)) strength++;
+      if (value.length >= 8) strength++;
+
+      const levels = ["Weak", "Fair", "Good", "Strong", "Very Strong"];
+      const colors = ["red", "orange", "goldenrod", "green", "darkgreen"];
+      passwordStrength.textContent = value ? `Strength: ${levels[strength - 1] || "Weak"}` : "";
+      passwordStrength.style.color = colors[strength - 1] || "red";
+    });
+
+    // === BACKEND API CONNECTION ===
+    async function handleAuthentication(email, password, isSignIn) {
+      try {
+        const endpoint = isSignIn ? '/login' : '/signup';
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password
+          })
+        });
+
+        const result = await response.json();
+        
+        if (response.ok && result.success) {
+          return {
+            success: true,
+            message: result.message,
+            user_id: result.user_id || email,
+            login_count: result.login_count || 1,
+            email: result.email || email
+          };
+        } else {
+          return {
+            success: false,
+            message: result.message || 'Authentication failed'
+          };
+        }
+        
+      } catch (error) {
+        console.error('API Error:', error);
+        return {
+          success: false,
+          message: 'Network error. Please check if backend server is running.'
+        };
+      }
+    }
+
+    // === Handle Form Submission (Backend Connected) ===
+    document.getElementById("auth-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const pwd = passwordInput.value.trim();
+      const confirm = confirmPasswordInput.value.trim();
+      
+      passwordError.style.display = "none";
+      confirmError.style.display = "none";
+      successMsg.style.display = "none";
+
+      // Validation
+      if (!validateEmail(email)) {
+        passwordError.textContent = "Invalid email format";
+        passwordError.style.display = "block";
+        return;
+      }
+
+      if (!validatePassword(pwd)) {
+        passwordError.textContent =
+          "Password must be 8+ chars, include uppercase, lowercase, number, and special character.";
+        passwordError.style.display = "block";
+        return;
+      }
+
+      if (!isSignIn && pwd !== confirm) {
+        confirmError.style.display = "block";
+        confirmError.textContent = "Passwords do not match";
+        return;
+      }
+
+      // Show loading state
+      formButton.disabled = true;
+      formButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+      try {
+        // Handle authentication with backend
+        const result = await handleAuthentication(email, pwd, isSignIn);
+
+        if (result.success) {
+          successMsg.textContent = result.message;
+          successMsg.style.color = "green";
+          successMsg.style.display = "block";
+
+          // Store user session in localStorage
+          setLoggedIn(true);
+          localStorage.setItem('userId', result.user_id);
+          localStorage.setItem('userEmail', result.email || email);
+          localStorage.setItem('userData', JSON.stringify({
+            id: result.user_id,
+            email: result.email || email,
+            login_count: result.login_count || 1
+          }));
+
+          // Update side navigation immediately
+          updateSideNavigation();
+
+          // Redirect after delay
+          setTimeout(() => {
+            window.location.href = "home.html";
+          }, 1500);
+        } else {
+          successMsg.textContent = result.message;
+          successMsg.style.color = "red";
+          successMsg.style.display = "block";
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        successMsg.textContent = 'Something went wrong. Please try again.';
+        successMsg.style.color = "red";
+        successMsg.style.display = "block";
+      } finally {
+        // Reset button state
+        formButton.disabled = false;
+        formButton.textContent = isSignIn ? "Sign In" : "Sign Up";
+      }
+    });
+
+    // ===== LOGIN RESTRICTION SYSTEM =====
+    const setLoggedIn = (status) => {
+      localStorage.setItem('isLoggedIn', status);
+    };
+
+    const isLoggedIn = () => {
+      return localStorage.getItem('isLoggedIn') === 'true';
+    };
+
+    // Check if user is logged in when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      // If user is already logged in, redirect to home
+      if (isLoggedIn() && window.location.pathname.includes('login.html')) {
+        window.location.href = 'home.html';
+      }
+    });
+  })();
+
+  // ===== BACKEND-ENABLED AUTH FUNCTIONS =====
+  function checkUserLoggedIn() {
+    const userId = localStorage.getItem('userId');
+    const userEmail = localStorage.getItem('userEmail');
+    return !!(userId && userEmail);
+  }
+
+  async function setUserLoggedIn(status) {
+    if (!status) {
+      // Logout - clear all local storage
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('loginCount');
+      
+      // Optionally call backend logout endpoint if you have one
+      try {
+        await fetch(`${API_BASE_URL}/logout`, { method: 'POST' });
+      } catch (error) {
+        console.log('Backend logout optional');
+      }
+    } else {
+      localStorage.setItem('isLoggedIn', 'true');
+    }
+  }
+
+  async function updateSideNavigation() {
+    const sideAuthButton = document.getElementById('side-auth-button');
+    const sideUserInfo = document.getElementById('side-user-info');
+    const sideUserName = document.getElementById('side-user-name');
+    const sideProfileLink = document.getElementById('side-profile-link');
+    
+    if (checkUserLoggedIn()) {
+      const userEmail = localStorage.getItem('userEmail') || '';
+      const userName = userEmail.split('@')[0] || 'User';
+      
+      sideUserInfo.style.display = 'block';
+      sideUserName.textContent = userName;
+      sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> ${userName}`;
+      sideAuthButton.textContent = 'Logout';
+      sideAuthButton.href = '#';
+      sideAuthButton.onclick = async function(e) {
+        e.preventDefault();
+        await setUserLoggedIn(false);
+        localStorage.removeItem('tarkaCart');
+        localStorage.removeItem('tarkaCurrentOrder');
+        window.location.href = 'login.html';
+      };
+      
+      // Optional: Fetch user data from backend
+      try {
+        const userId = localStorage.getItem('userId');
+        if (userId) {
+          const response = await fetch(`${API_BASE_URL}/user/${userId}`);
+          if (response.ok) {
+            const userData = await response.json();
+            if (userData.success) {
+              localStorage.setItem('userData', JSON.stringify(userData.user));
+            }
+          }
+        }
+      } catch (error) {
+        console.log('Optional: Could not fetch user details');
+      }
+    } else {
+      sideUserInfo.style.display = 'none';
+      sideProfileLink.innerHTML = `<i class="fa-solid fa-user"></i> Profile`;
+      sideAuthButton.textContent = 'Login';
+      sideAuthButton.href = 'login.html';
+      sideAuthButton.onclick = null;
+    }
+  }
+
+  // === BACKEND HEALTH CHECK ===
+  async function checkBackendHealth() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/`, { 
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      return response.ok;
+    } catch (error) {
+      console.warn('Backend is not running. Using fallback mode.');
+      return false;
+    }
+  }
+
+  // Update cart count
+  function updateCartCount() {
+    const cartItems = JSON.parse(localStorage.getItem('tarkaCart') || '[]');
+    const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+    
+    const sideCartCount = document.getElementById('side-cart-count');
+    if (sideCartCount) {
+      sideCartCount.textContent = totalItems;
+    }
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', async function() {
+    const isBackendRunning = await checkBackendHealth();
+    
+    if (!isBackendRunning) {
+      // Show a subtle warning
+      const formTitle = document.getElementById('form-title');
+      if (formTitle) {
+        formTitle.innerHTML += ' <small style="color: orange; font-size: 12px;">(Offline Mode)</small>';
+      }
+      console.log('Running in offline/fallback mode');
+    }
+    
+    updateSideNavigation();
+    updateCartCount();
+  });
+</script>
+</body>
+</html>
