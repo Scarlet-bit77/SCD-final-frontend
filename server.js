@@ -122,6 +122,22 @@ app.post("/chat", async (req, res) => {
 
 
 
+const path = require("path");
+const express = require("express");
+const app = express();
+
+// Serve all static files (HTML, CSS, JS) from the root of the repo
+app.use(express.static(path.join(__dirname)));
+
+// Catch-all route to serve index.html for any unknown route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html")); // your main HTML file
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
 
 
 
@@ -134,14 +150,13 @@ app.post("/chat", async (req, res) => {
 
 
 
+// // ⚠️ CORRECT PATH: All your files are in this folder
+// const frontendPath = "C:\\Users\\Microsoft\\OneDrive\\Desktop\\FDB tarka final\\FDB tarka final\\FDB tarka final\\Tarka SDC - Copy\\Tarka SDC-demo\\tarka-2 - Copy 5";
+// console.log("📁 Frontend path:", frontendPath);
+// console.log("✅ Path exists:", fs.existsSync(frontendPath));
 
-// ⚠️ CORRECT PATH: All your files are in this folder
-const frontendPath = "C:\\Users\\Microsoft\\OneDrive\\Desktop\\FDB tarka final\\FDB tarka final\\FDB tarka final\\Tarka SDC - Copy\\Tarka SDC-demo\\tarka-2 - Copy 5";
-console.log("📁 Frontend path:", frontendPath);
-console.log("✅ Path exists:", fs.existsSync(frontendPath));
-
-// Serve static files from frontend folder
-app.use(express.static(frontendPath));
+// // Serve static files from frontend folder
+// app.use(express.static(frontendPath));
 
 // ===== MONGODB MODELS =====
 
